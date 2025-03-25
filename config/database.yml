@@ -6,11 +6,11 @@ default: &default
 
 development:
   <<: *default
-  database: joss_development
+  database: evidence_development
 
 test:
   <<: *default
-  database: joss_test
+  database: evidence_test
 
 production:
   adapter: postgresql
