@@ -1,0 +1,114 @@
+document.addEventListener("DOMContentLoaded", function () {
+    // First, let's create the pulse animation style
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulsing {
+            animation: pulse 1s ease-in-out infinite;
+            transform-origin: center;
+            transform-box: fill-box;
+        }
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes subtle-wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-1deg); }
+            75% { transform: rotate(1deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .wiggling {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+        .subtle-wiggling {
+            animation: subtle-wiggle 1s ease-in-out infinite;
+        }
+    `;
+    document.head.appendChild(styleSheet);
+
+    fetch("evidence_logo_black.svg")
+        .then(response => response.text())
+        .then(svgText => {
+            const container = document.getElementById("svg-container");
+            container.innerHTML = svgText;
+            
+            // Add initial wiggle animation to the SVG, except for specific elements
+            const svg = container.querySelector("svg");
+
+            // Create and show initial tooltip
+            const initialTooltip = document.createElement("div");
+            initialTooltip.style.position = "absolute";
+            initialTooltip.style.padding = "8px";
+            initialTooltip.style.background = "rgba(28.24%,50.2%,60%,80%)";
+            initialTooltip.style.color = "#fff";
+            initialTooltip.style.borderRadius = "5px";
+            initialTooltip.style.fontSize = "14px";
+            initialTooltip.style.zIndex = "1000"; // Ensure it's above the logo
+            initialTooltip.style.pointerEvents = "none"; // Prevent it from interfering with hover
+            initialTooltip.textContent = "Hover leaves to color up the building blocks of a living preprint!";
+            
+            // Position the tooltip over the center of the SVG
+            const svgRect = svg.getBoundingClientRect();
+            initialTooltip.style.left = `${svgRect.left + svgRect.width/2}px`;
+            initialTooltip.style.top = `${svgRect.top - 15}px`;
+            initialTooltip.style.transform = "translate(-50%, -50%)";
+            
+            document.body.appendChild(initialTooltip);
+
+            // Remove tooltip on first interaction
+            const elements = [
+                { id: "code-leaf", color: "#f97c0c", text: "Code is the foundation of modern research. It powers our analyses, drives our simulations, and enables reproducible science." },
+                { id: "data-leaf", color: "#37cae2", text: "Data is the lifeblood of scientific discovery. It represents our observations, measurements, and the raw material of knowledge." },
+                { id: "runtime-leaf", color: "#659b59", text: "Runtime environments ensure consistency and reproducibility across different systems and platforms." },
+                { id: "outer-patch", color: "#b256a1", text: "The scientific process is iterative and collaborative, building upon previous knowledge." },
+                { id: "inner-patch", color: "#6f00b7", text: "At our core is the commitment to open science and transparent research." },
+                { id: "letter-e", color: "#394459", text: "Evidence-based research drives progress and innovation in every field." }
+            ];
+            
+            const cardInner = document.querySelector('.card-inner');
+            const componentDescription = document.getElementById('component-description');
+            
+            elements.forEach(({ id, color, text }) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    const path = element.querySelector("path");
+                    path.style.transition = "fill 0.3s ease";
+                    if (id !== "letter-e") {
+                        element.classList.add("subtle-wiggling");
+                        element.style.animationDelay = `${Math.random() * -1}s`;
+                    }
+                    
+                    // Remove tooltip and wiggling animation on first interaction
+                    element.addEventListener("mouseenter", () => {
+                        if (initialTooltip && initialTooltip.parentNode) {
+                            initialTooltip.remove();
+                        }
+                        // Remove wiggling only from the hovered element
+                        element.classList.remove("subtle-wiggling");
+                    }, { once: true });
+                    
+                    // Regular hover interactions (these should happen every time)
+                    element.addEventListener("mouseenter", () => {
+                        path.setAttribute("fill", color);
+                        path.classList.add("pulsing");
+                        componentDescription.textContent = text;
+                        componentDescription.style.color = color;
+                        cardInner.classList.add('card-flip');
+                    });
+                    
+                    element.addEventListener("mouseleave", () => {
+                        path.classList.remove("pulsing");
+                        cardInner.classList.remove('card-flip');
+                    });
+                }
+            });
+        })
+        .catch(error => console.error("Error loading SVG:", error));
+});

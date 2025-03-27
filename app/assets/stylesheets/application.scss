@@ -81,7 +81,7 @@ TODO
         }
 
         .btn {
-            background-color: #2E294E;
+            background-color: #394459; 
             color: #fff;
             font-weight: bold;
             padding: 1em 2em;
@@ -91,7 +91,7 @@ TODO
             height: 3em;
 
             &:hover {
-                background-color: #4D4482;
+                background-color: #488099;
                 color: #fff;
             }
 
@@ -345,7 +345,7 @@ TODO
 
     &:before {
         content: ('');
-        background-image: url(image_path('logo_medium.png'));
+        background-image: url(image_path('evidence_pistachio_600x600.png'));
         background-size: 80px 84px;
         width: 80px;
         height: 84px;

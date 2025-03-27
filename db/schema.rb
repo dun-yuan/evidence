@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_130939) do
     t.index ["token"], name: "index_onboarding_invitations_on_token"
   end
 
-  create_table "papers", id: :serial, force: :cascade do |t|
+  create_table "papers", force: :cascade do |t|
     t.string "title"
     t.string "state"
     t.string "repository_url"
@@ -95,10 +95,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_130939) do
     t.string "doi"
     t.text "paper_body"
     t.integer "meta_review_issue_id"
+    t.string "kind"
     t.text "authors"
     t.text "citation_string"
     t.datetime "accepted_at", precision: nil
-    t.string "kind"
     t.integer "editor_id"
     t.string "reviewers", default: [], array: true
     t.text "activities"
@@ -110,9 +110,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_130939) do
     t.integer "eic_id"
     t.string "submission_kind"
     t.string "git_branch"
+    t.string "repository_doi"
+    t.string "data_doi"
+    t.string "book_doi"
+    t.string "docker_doi"
+    t.string "book_exec_url"
     t.bigint "track_id"
     t.string "suggested_subject"
     t.bigint "retraction_for_id"
+    t.string "prpub_doi"
+    t.string "prpub_journal"
     t.index ["editor_id"], name: "index_papers_on_editor_id"
     t.index ["eic_id"], name: "index_papers_on_eic_id"
     t.index ["labels"], name: "index_papers_on_labels", using: :gin
@@ -151,7 +158,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_130939) do
     t.index ["name"], name: "index_tracks_on_name"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "provider"
     t.string "uid"
     t.string "name"
