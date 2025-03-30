@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add initial wiggle animation to the SVG, except for specific elements
             const svg = container.querySelector("svg");
 
-            // Create and show initial tooltip
+            // Make tooltip responsive
             const initialTooltip = document.createElement("div");
             initialTooltip.style.position = "absolute";
             initialTooltip.style.padding = "8px";
@@ -50,9 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
             initialTooltip.style.color = "#fff";
             initialTooltip.style.borderRadius = "5px";
             initialTooltip.style.fontSize = "14px";
-            initialTooltip.style.zIndex = "1000"; // Ensure it's above the logo
-            initialTooltip.style.pointerEvents = "none"; // Prevent it from interfering with hover
-            initialTooltip.textContent = "Hover leaves to color up the building blocks of a living preprint!";
+            initialTooltip.style.zIndex = "1000";
+            initialTooltip.style.pointerEvents = "none";
+            initialTooltip.style.maxWidth = "80vw"; // Make tooltip width responsive
+            initialTooltip.style.textAlign = "center"; // Center text for better mobile display
+            initialTooltip.textContent = "Tap or hover over leaves to color up the building blocks of a living preprint!";
             
             // Position the tooltip over the center of the SVG
             const svgRect = svg.getBoundingClientRect();
@@ -91,25 +93,21 @@ document.addEventListener("DOMContentLoaded", function () {
                         element.style.animationDelay = `${Math.random() * -1}s`;
                     }
                     
-                    // Remove tooltip and wiggling animation on first interaction
-                    element.addEventListener("mouseenter", () => {
+                    // Function to handle both touch and mouse events
+                    const handleInteractionStart = () => {
                         if (initialTooltip && initialTooltip.parentNode) {
                             initialTooltip.remove();
                         }
-                        // Remove wiggling only from the hovered element
                         element.classList.remove("subtle-wiggling");
-                    }, { once: true });
-                    
-                    // Regular hover interactions (these should happen every time)
-                    element.addEventListener("mouseenter", () => {
+                        
                         path.setAttribute("fill", color);
                         path.classList.add("pulsing");
                         
-                        // Handle content display based on what's available
                         if (video) {
-                            componentDescription.style.display = 'none'; // Hide text component
+                            componentDescription.style.display = 'none';
                             videoElement.innerHTML = `
                                 <video 
+                                    playsinline 
                                     autoplay 
                                     loop 
                                     muted 
@@ -126,19 +124,33 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                         
                         cardInner.classList.add('card-flip');
-                    });
-                    
-                    element.addEventListener("mouseleave", () => {
+                    };
+
+                    const handleInteractionEnd = () => {
                         path.classList.remove("pulsing");
                         cardInner.classList.remove('card-flip');
                         
-                        // Reset display states
                         if (video) {
                             videoElement.style.display = 'none';
                             videoElement.innerHTML = '';
                             componentDescription.style.display = 'block';
                         }
+                    };
+
+                    // Add touch events
+                    element.addEventListener('touchstart', (e) => {
+                        e.preventDefault(); // Prevent mouse events from firing
+                        handleInteractionStart();
                     });
+
+                    element.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        handleInteractionEnd();
+                    });
+
+                    // Keep mouse events for desktop
+                    element.addEventListener("mouseenter", handleInteractionStart);
+                    element.addEventListener("mouseleave", handleInteractionEnd);
                 }
             });
         })
