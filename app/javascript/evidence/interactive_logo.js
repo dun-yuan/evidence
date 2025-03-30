@@ -93,7 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         element.style.animationDelay = `${Math.random() * -1}s`;
                     }
                     
-                    // Function to handle both touch and mouse events
+                    let isFlipped = false; // Track flip state for mobile
+                    
                     const handleInteractionStart = () => {
                         if (initialTooltip && initialTooltip.parentNode) {
                             initialTooltip.remove();
@@ -137,18 +138,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     };
 
-                    // Add touch events
+                    // Handle touch events differently
                     element.addEventListener('touchstart', (e) => {
                         e.preventDefault(); // Prevent mouse events from firing
-                        handleInteractionStart();
+                        if (isFlipped) {
+                            handleInteractionEnd();
+                        } else {
+                            handleInteractionStart();
+                        }
+                        isFlipped = !isFlipped;
                     });
 
-                    element.addEventListener('touchend', (e) => {
-                        e.preventDefault();
-                        handleInteractionEnd();
-                    });
-
-                    // Keep mouse events for desktop
+                    // Keep mouse events for desktop only
                     element.addEventListener("mouseenter", handleInteractionStart);
                     element.addEventListener("mouseleave", handleInteractionEnd);
                 }
