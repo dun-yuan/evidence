@@ -1,0 +1,59 @@
+<div class="container">
+  <%# <div class="hero min-vh-100 align-items-top"> %>
+  <div class="hero" style="min-height: 500px;">
+    <div class="hero-nav col-lg-4">
+      <%= javascript_include_tag 'evidence/interactive_logo' %>
+      <div id="svg-container"></div>
+    </div>
+
+    <div class="hero-content offset-lg-1 col-lg-7">
+      <div class="content-card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h1>The <%= Rails.application.settings['abbreviation'] %> is <%= setting(:tagline).html_safe %></h1>
+            <p class="lead">Interactive, online-executable preprints that can import each other and evolve with new data.</p>
+            <hr>
+            <div class="hero-ctas">
+              <%= link_to "⚡️ Quickstart with templates".html_safe, new_paper_path, class: "btn" %>
+              <%= link_to "🌱 Submit a living preprint".html_safe, setting(:reviewers_signup_url), class: "btn" %>
+            </div>
+          </div>
+          <div class="card-back">
+            <div id="component-description"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center" style="background-color:#e7eee8; margin-top: 20px; margin-bottom: 20px; padding: 10px;">
+  <div class="col-lg-6">
+    <div class="nav-links-row">
+      <%= link_to papers_path, class: "nav-link" do %>
+        <%= image_tag 'icon_papers.svg' %>
+    <span>Explore Preprints</span>
+  <% end %>
+  <%= link_to "https://joss.readthedocs.io/en/latest/", class: "nav-link" do %>
+    <%= image_tag 'icon_docs.svg' %>
+    <span>Documentation</span>
+  <% end %>
+  <%= link_to about_path, class: "nav-link" do %>
+    <%= image_tag 'icon_info.svg' %>
+    <span>Governance</span>
+  <% end %>
+</div>
+</div>
+</div> 
+
+<div class="container">
+  <h4>Recently Published Papers <span class="badge-count"><%= Paper.visible.count %></span></h4>
+
+  <div class="paper-list" id="all-papers">
+    <%= render partial: "papers/list", locals: { papers: @papers } %>
+  </div>
+
+  <div class="my-5 text-center">
+    <%= link_to "View all papers".html_safe, published_papers_path, class: "btn", data: { text: "View all papers"} %>
+  </div>
+</div>
