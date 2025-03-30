@@ -643,6 +643,7 @@ $btn-primary-border: darken($btn-primary-bg, 5%) !default;
 
     .paper-card {
         background: #fff;
+        position: relative;
         border-radius: .25em;
         padding: 1.5em 2em;
         box-shadow: 0 2px 8px 0 rgba(46, 41, 78, 0.10);

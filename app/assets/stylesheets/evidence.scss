@@ -1,3 +1,33 @@
+@import "bootstrap-4.3.1/bootstrap";
+
+// Bootstrap overrides
+
+@include media-breakpoint-up(lg) {
+    .container {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+}
+
+@include media-breakpoint-down(md) {
+    .container {
+        width: 90%;
+        max-width: none;
+        margin: 0 auto;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .container {
+        width:94%
+    }
+}
+
+
+
 .nav-links-row {
     display: flex;
     justify-content: space-between;
@@ -152,5 +182,86 @@
       padding: 0.6em 0.2em;
       border-radius: 5px;
       font-size: 12px !important;
+  }
+}
+
+.evidence-lr-corner-leaf {
+  position: absolute;
+  bottom: -5px;
+  right: -8px;
+  width: 50px;  /* Adjust size */
+  height: auto;
+}
+
+.paper-list {
+  margin-top: 1.5em;
+  font-size: 14px;
+
+  .evidence-paper-card {
+      background: #fcfbfb;
+      position: relative;
+      border-radius: 15px;
+      padding: 1.5em 2em;
+      box-shadow: 0 2px 8px 0 rgba(46, 41, 78, 0.10);
+      margin-bottom: 1em;
+
+      @include media-breakpoint-down(md) {
+          padding: 0.75em 1em 0em 1em;
+      }
+
+  }
+
+  .paper-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      a {
+          color: #007BFF;
+      }
+
+      @include media-breakpoint-down(md) {
+          flex-direction: row;
+          justify-content: space-between;
+          margin-top: 1em;
+          padding-top: 1em;
+          border-top: 1px solid rgba(46, 41, 78, 0.10);
+      }
+
+      .btn {
+          font-size: 12px;
+          width: 10em;
+          background: transparent;
+          border: solid 1px #F4F4F6;
+          display: inline-block;
+          font-weight: 400;
+
+          &:hover {
+              background: #F4F4F6;
+          }
+      }
+  }
+
+  .time {
+      font-size: 0.857em;
+      color: rgba(46, 41, 78, 0.50);
+      margin-left: 0.25em;
+  }
+
+  h2 {
+      font-size: 1.285em;
+      margin-top: 0.5em;
+      display: flex;
+      align-items: center;
+  }
+
+  a {
+      transition: color .3s;
+      color: #2E294E;
+
+      &:hover {
+          color: #007BFF;
+          text-decoration: none;
+      }
   }
 }

@@ -49,8 +49,9 @@
 <div class="container">
   <h4>Recently Published Papers <span class="badge-count"><%= Paper.visible.count %></span></h4>
 
+  <%= javascript_include_tag 'evidence/card_leaves' %>
   <div class="paper-list" id="all-papers">
-    <%= render partial: "papers/list", locals: { papers: @papers } %>
+    <%= render partial: "papers/evidence_list", locals: { papers: @papers } %>
   </div>
 
   <div class="my-5 text-center">

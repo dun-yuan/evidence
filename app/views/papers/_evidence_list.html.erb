@@ -1,0 +1,42 @@
+<% papers.each do |paper| %>
+<% unless paper.submitted? %>
+<div class="evidence-paper-card">
+  <div class="row">
+    <div class="col-lg-9">
+      <%= pretty_status_badge(paper) %> <%= time_words(paper) %>
+      <h2 class="paper-title"><%= link_to paper.title, paper.seo_url %>
+      </h2>
+      <% paper.language_tags.each do |tag| %>
+      <span class="badge-lang"><%= link_to tag, papers_by_language_path(language: tag) %></span>
+      <% end %>
+    </div>
+    <div class="col-lg-3 paper-meta">
+      <div class="submitted_by">
+        <%= link_to submittor_github(paper), target: "_blank" do %>
+        <%= image_tag submittor_avatar(paper), size: "24x24" %>
+        <%= paper.submitting_author.pretty_github_username %>
+        <% end %>
+      </div>
+      <div class="doi">
+        <% if paper.doi.blank? %>
+        <%= image_tag 'doi.svg' %><%= link_to "Pending", paper_path(paper) %>
+        <% else %>
+        <%= image_tag 'doi.svg' %><%= link_to paper.doi, paper.seo_url %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="evidence-lr-corner-leaf">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 95 125">
+      <g>
+        <g id="card-lr-corner">
+          <path class="cls-corner-leaf" d="M86.1,5.7c-.3,0-.7,0-1.2.4-1.6,1.3-2.7,3.2-3.8,4.8-4.3,6.3-10.6,10.8-16.8,15.1C29.9,45,11.3,80.3,6.6,115.7c-.2,1.3-.4,3.1.4,4,.9,1.1,3.3,1,5.2.9,2-.1,3.7-1.1,5.3-2.4,15.5-12.4,29.9-27.2,39-45,2.2-3.7,5.2-9.6,8.9-11.3,3-.3.2,5.1-.3,6.7-8.1,20.9-15.8,34.8-33.4,48.8-1.4,1-4.5,3.2-.8,3.3,10.4,0,21.7.3,32-2.2,6.5-1.8,12.3-5.7,16.4-11,5.2-6.7,7.7-15.3,7.8-23.8.6-24.8.8-50.2,0-74.9,0-1,0-2.4-.8-3h0Z"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  
+</div>
+<% end %>
+<% end %>
