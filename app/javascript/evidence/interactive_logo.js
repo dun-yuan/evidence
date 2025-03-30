@@ -64,9 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Remove tooltip on first interaction
             const elements = [
-                { id: "code-leaf", color: "#f97c0c", text: "Code is the foundation of modern research. It powers our analyses, drives our simulations, and enables reproducible science." },
+                { id: "code-leaf", color: "#f97c0c", video: "code.mp4" },
                 { id: "data-leaf", color: "#37cae2", text: "Data is the lifeblood of scientific discovery. It represents our observations, measurements, and the raw material of knowledge." },
-                { id: "runtime-leaf", color: "#659b59", text: "Runtime environments ensure consistency and reproducibility across different systems and platforms." },
+                { id: "runtime-leaf", color: "#659b59",  video: "runtime.mp4" },
                 { id: "outer-patch", color: "#b256a1", text: "The scientific process is iterative and collaborative, building upon previous knowledge." },
                 { id: "inner-patch", color: "#6f00b7", text: "At our core is the commitment to open science and transparent research." },
                 { id: "letter-e", color: "#394459", text: "Evidence-based research drives progress and innovation in every field." }
@@ -75,7 +75,13 @@ document.addEventListener("DOMContentLoaded", function () {
             const cardInner = document.querySelector('.card-inner');
             const componentDescription = document.getElementById('component-description');
             
-            elements.forEach(({ id, color, text }) => {
+            // Remove the separate video container creation and instead create a video element inside the card
+            const videoElement = document.createElement('div');
+            videoElement.style.display = 'none';
+            videoElement.style.marginTop = '15px'; // Add some space between text and video
+            componentDescription.parentNode.appendChild(videoElement);
+            
+            elements.forEach(({ id, color, text, video }) => {
                 const element = document.getElementById(id);
                 if (element) {
                     const path = element.querySelector("path");
@@ -98,14 +104,40 @@ document.addEventListener("DOMContentLoaded", function () {
                     element.addEventListener("mouseenter", () => {
                         path.setAttribute("fill", color);
                         path.classList.add("pulsing");
-                        componentDescription.textContent = text;
-                        componentDescription.style.color = color;
+                        
+                        // Handle content display based on what's available
+                        if (video) {
+                            componentDescription.style.display = 'none'; // Hide text component
+                            videoElement.innerHTML = `
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+                                >
+                                    <source src="${video}" type="video/mp4">
+                                </video>
+                            `;
+                            videoElement.style.display = 'block';
+                        } else {
+                            componentDescription.style.display = 'block';
+                            componentDescription.textContent = text;
+                            componentDescription.style.color = color;
+                        }
+                        
                         cardInner.classList.add('card-flip');
                     });
                     
                     element.addEventListener("mouseleave", () => {
                         path.classList.remove("pulsing");
                         cardInner.classList.remove('card-flip');
+                        
+                        // Reset display states
+                        if (video) {
+                            videoElement.style.display = 'none';
+                            videoElement.innerHTML = '';
+                            componentDescription.style.display = 'block';
+                        }
                     });
                 }
             });
