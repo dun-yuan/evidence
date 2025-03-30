@@ -83,6 +83,8 @@ document.addEventListener("DOMContentLoaded", function () {
             videoElement.style.marginTop = '15px'; // Add some space between text and video
             componentDescription.parentNode.appendChild(videoElement);
             
+            let currentActiveElement = null;
+
             elements.forEach(({ id, color, text, video }) => {
                 const element = document.getElementById(id);
                 if (element) {
@@ -93,13 +95,71 @@ document.addEventListener("DOMContentLoaded", function () {
                         element.style.animationDelay = `${Math.random() * -1}s`;
                     }
                     
-                    let isFlipped = false; // Track flip state for mobile
+                    let isFlipped = false;
+                    let hasBeenInteracted = false; // Track if element has been interacted with
                     
-                    const handleInteractionStart = () => {
+                    const handleTouchStart = () => {
+                        if (currentActiveElement && currentActiveElement !== element) {
+                            const currentPath = currentActiveElement.querySelector("path");
+                            currentPath.classList.remove("pulsing");
+                            if (!hasBeenInteracted) {
+                                currentActiveElement.classList.add("subtle-wiggling");
+                            }
+                            isFlipped = false;
+                        }
+
                         if (initialTooltip && initialTooltip.parentNode) {
                             initialTooltip.remove();
                         }
                         element.classList.remove("subtle-wiggling");
+                        hasBeenInteracted = true;
+                        
+                        path.setAttribute("fill", color);
+                        path.classList.add("pulsing");
+                        
+                        if (video) {
+                            componentDescription.style.display = 'none';
+                            videoElement.innerHTML = `
+                                <video 
+                                    playsinline 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+                                >
+                                    <source src="${video}" type="video/mp4">
+                                </video>
+                            `;
+                            videoElement.style.display = 'block';
+                        } else {
+                            componentDescription.style.display = 'block';
+                            componentDescription.textContent = text;
+                            componentDescription.style.color = color;
+                        }
+                        
+                        cardInner.classList.add('card-flip');
+                        currentActiveElement = element;
+                    };
+
+                    const handleTouchEnd = () => {
+                        path.classList.remove("pulsing");
+                        cardInner.classList.remove('card-flip');
+                        
+                        if (video) {
+                            videoElement.style.display = 'none';
+                            videoElement.innerHTML = '';
+                            componentDescription.style.display = 'block';
+                        }
+                        currentActiveElement = null;
+                    };
+
+                    const handleMouseEnter = () => {
+                        if (initialTooltip && initialTooltip.parentNode) {
+                            initialTooltip.remove();
+                        }
+                        
+                        element.classList.remove("subtle-wiggling");
+                        hasBeenInteracted = true;
                         
                         path.setAttribute("fill", color);
                         path.classList.add("pulsing");
@@ -127,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         cardInner.classList.add('card-flip');
                     };
 
-                    const handleInteractionEnd = () => {
+                    const handleMouseLeave = () => {
                         path.classList.remove("pulsing");
                         cardInner.classList.remove('card-flip');
                         
@@ -138,20 +198,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     };
 
-                    // Handle touch events differently
                     element.addEventListener('touchstart', (e) => {
-                        e.preventDefault(); // Prevent mouse events from firing
+                        e.preventDefault();
                         if (isFlipped) {
-                            handleInteractionEnd();
+                            handleTouchEnd();
                         } else {
-                            handleInteractionStart();
+                            handleTouchStart();
                         }
                         isFlipped = !isFlipped;
                     });
 
-                    // Keep mouse events for desktop only
-                    element.addEventListener("mouseenter", handleInteractionStart);
-                    element.addEventListener("mouseleave", handleInteractionEnd);
+                    element.addEventListener("mouseenter", handleMouseEnter);
+                    element.addEventListener("mouseleave", handleMouseLeave);
                 }
             });
         })
