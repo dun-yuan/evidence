@@ -30,6 +30,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .subtle-wiggling {
             animation: subtle-wiggle 1s ease-in-out infinite;
         }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     `;
     document.head.appendChild(styleSheet);
 
@@ -67,14 +71,15 @@ document.addEventListener("DOMContentLoaded", function () {
             // Remove tooltip on first interaction
             const elements = [
                 { id: "code-leaf", color: "#f97c0c", video: "code.mp4" },
-                { id: "data-leaf", color: "#37cae2", text: "Data is the lifeblood of scientific discovery. It represents our observations, measurements, and the raw material of knowledge." },
-                { id: "runtime-leaf", color: "#659b59",  video: "runtime.mp4" },
-                { id: "outer-patch", color: "#b256a1", text: "The scientific process is iterative and collaborative, building upon previous knowledge." },
-                { id: "inner-patch", color: "#6f00b7", text: "At our core is the commitment to open science and transparent research." },
-                { id: "letter-e", color: "#394459", text: "Evidence-based research drives progress and innovation in every field." }
+                { id: "data-leaf", color: "#37cae2", video: "data.mp4" },
+                { id: "runtime-leaf", color: "#659b59", video: "runtime.mp4" },
+                { id: "outer-patch", color: "#b256a1", video: "crosspol.mp4" },
+                { id: "inner-patch", color: "#6f00b7", video:"evolve.mp4" },
+                { id: "letter-e", color: "#394459", text: "Beyond static. Beyond now. Evidence." }
             ];
             
             const cardInner = document.querySelector('.card-inner');
+            const cardBack = document.querySelector('.card-back');
             const componentDescription = document.getElementById('component-description');
             
             // Remove the separate video container creation and instead create a video element inside the card
@@ -83,6 +88,24 @@ document.addEventListener("DOMContentLoaded", function () {
             videoElement.style.marginTop = '15px'; // Add some space between text and video
             componentDescription.parentNode.appendChild(videoElement);
             
+            // Add a spinner element after the component description
+            const spinnerElement = document.createElement('div');
+            spinnerElement.className = 'spinner';
+            spinnerElement.style.display = 'none';
+            spinnerElement.innerHTML = `
+                <div style="
+                    width: 40px;
+                    height: 40px;
+                    border: 4px solid #f3f3f3;
+                    border-top: 4px solid #3498db;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                    margin: 20px auto;
+                "></div>
+            `;
+            
+            componentDescription.parentNode.insertBefore(spinnerElement, videoElement);
+
             let currentActiveElement = null;
 
             elements.forEach(({ id, color, text, video }) => {
@@ -116,9 +139,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         
                         path.setAttribute("fill", color);
                         path.classList.add("pulsing");
-                        
+                        cardBack.style.backgroundColor = color;
+
                         if (video) {
                             componentDescription.style.display = 'none';
+                            spinnerElement.style.display = 'block';
                             videoElement.innerHTML = `
                                 <video 
                                     playsinline 
@@ -126,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     loop 
                                     muted 
                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+                                    onloadeddata="this.parentElement.previousElementSibling.style.display='none'"
                                 >
                                     <source src="${video}" type="video/mp4">
                                 </video>
@@ -151,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             componentDescription.style.display = 'block';
                         }
                         currentActiveElement = null;
+                        spinnerElement.style.display = 'none';
                     };
 
                     const handleMouseEnter = () => {
@@ -163,9 +190,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         
                         path.setAttribute("fill", color);
                         path.classList.add("pulsing");
-                        
+                        cardBack.style.backgroundColor = color;
+
                         if (video) {
                             componentDescription.style.display = 'none';
+                            spinnerElement.style.display = 'block';
                             videoElement.innerHTML = `
                                 <video 
                                     playsinline 
@@ -173,11 +202,13 @@ document.addEventListener("DOMContentLoaded", function () {
                                     loop 
                                     muted 
                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+                                    onloadeddata="this.parentElement.previousElementSibling.style.display='none'"
                                 >
                                     <source src="${video}" type="video/mp4">
                                 </video>
                             `;
-                            videoElement.style.display = 'block';
+                            videoElement.style.display = 'block'; 
+                            
                         } else {
                             componentDescription.style.display = 'block';
                             componentDescription.textContent = text;
@@ -190,12 +221,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     const handleMouseLeave = () => {
                         path.classList.remove("pulsing");
                         cardInner.classList.remove('card-flip');
-                        
+
                         if (video) {
                             videoElement.style.display = 'none';
                             videoElement.innerHTML = '';
                             componentDescription.style.display = 'block';
                         }
+                        spinnerElement.style.display = 'none';
                     };
 
                     element.addEventListener('touchstart', (e) => {
