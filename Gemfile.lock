@@ -161,6 +161,8 @@ GEM
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
     ffi (1.17.1-x86_64-linux-musl)
+    font-awesome-sass (6.7.2)
+      sassc (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-apis-core (0.11.3)
@@ -522,6 +524,7 @@ DEPENDENCIES
   dotenv (~> 2.8.1)
   elasticsearch (< 7.14)
   factory_bot_rails (~> 6.4.2)
+  font-awesome-sass (~> 6.0)
   google_drive
   groupdate
   honeybadger (~> 5.2.0)

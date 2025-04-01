@@ -1,4 +1,5 @@
 @import "bootstrap-4.3.1/bootstrap";
+@import 'font-awesome';
 
 // Bootstrap overrides
 
@@ -98,7 +99,7 @@
   font-weight: 400;
 
   &.accepted {
-      background-color: yellowgreen;
+      background-color: #90c37f !important;
       color: black;
       padding: 0.4em 0.5em !important;
   }
@@ -124,7 +125,7 @@
   }
 
   &.docker {
-      background-color: #1D63ED;
+      background-color: #659b59;
       color: white;
       padding: 0.4em 0.4em !important;
       align-content: center;
@@ -132,7 +133,7 @@
   }
 
   &.github {
-      background-color: #24292e;
+      background-color: #f97c0c;
       color: white;
       padding: 0.4em 0.4em !important;
       align-content: center;
@@ -148,7 +149,7 @@
   }
 
   &.data {
-      background-color: purple;
+      background-color: #37cae2;
       color: white;
       padding: 0.4em 0.4em !important;
       align-content: center;
@@ -188,7 +189,7 @@
 .evidence-lr-corner-leaf {
   position: absolute;
   bottom: -5px;
-  right: -8px;
+  right: -5px;
   width: 50px;  /* Adjust size */
   height: auto;
 }
@@ -198,17 +199,21 @@
   font-size: 14px;
 
   .evidence-paper-card {
-      background: #fcfbfb;
       position: relative;
       border-radius: 15px;
-      padding: 1.5em 2em;
-      box-shadow: 0 2px 8px 0 rgba(46, 41, 78, 0.10);
+      padding: 0em 1em 0em 1em;
+      box-shadow: 0 2px 8px 0 rgba(46, 41, 78, 0.15);
       margin-bottom: 1em;
-
-      @include media-breakpoint-down(md) {
-          padding: 0.75em 1em 0em 1em;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      
+      &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 5px 15px 0 rgba(46, 41, 78, 0.25);
       }
 
+      @include media-breakpoint-down(md) {
+          padding: 0em 1em 0em 1em;
+      }
   }
 
   .paper-meta {

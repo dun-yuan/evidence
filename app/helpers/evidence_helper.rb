@@ -35,8 +35,12 @@ Depending on the existence of the authors data and links per author (e.g., perso
           return "".html_safe
         else
           fragment = []
-          authors.each do |author|
-            fragment << author_link_card(author)
+          authors.each_with_index do |author, index|
+            if index == 0
+              fragment << "<strong>#{author_link_card(author)}</strong>"
+            else
+              fragment << author_link_card(author)
+            end
           end
     
           return fragment.join(', ').html_safe
@@ -89,11 +93,12 @@ Depending on the existence of the authors data and links per author (e.g., perso
         state = paper.state.gsub('_', ' ')
     
         github_badge = paper.repository_doi ? link_to(content_tag(:span, icon('fa-brands', 'github'), class: "badge github"), paper.repository_doi,target: "_blank") : ""
-        book_badge = paper.book_doi ? link_to(content_tag(:span, icon('fa-solid', 'file-code'), class: "badge book"), paper.book_doi,target: "_blank") : ""
+        # book_badge = paper.book_doi ? link_to(content_tag(:span, icon('fa-solid', 'file-code'), class: "badge book"), paper.book_doi,target: "_blank") : ""
         data_badge = (paper.data_doi && paper.data_doi != "N/A") ? link_to(content_tag(:span, icon('fa-solid', 'database'), class: "badge data"), paper.data_doi,target: "_blank") : ""
         docker_badge = (paper.docker_doi && paper.docker_doi != "N/A") ? link_to(content_tag(:span, icon('fa-brands', 'docker'), class: "badge docker"), paper.docker_doi,target: "_blank") : ""
         if state == "accepted"
-        return safe_join([github_badge,book_badge,data_badge,docker_badge],' ')
+        # return safe_join([github_badge,book_badge,data_badge,docker_badge],' ')
+        return safe_join([github_badge,data_badge,docker_badge],' ')
         end
       end
     

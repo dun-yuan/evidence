@@ -1,27 +1,28 @@
 <% papers.each do |paper| %>
 <% unless paper.submitted? %>
-<div class="evidence-paper-card">
-  <div class="row">
+<%= javascript_include_tag 'evidence/card_leaves' %>
+<%= javascript_include_tag 'evidence/interactive_logo' %>
+<div class="evidence-paper-card" >
+  <div class="row" id="evidence-paper-card-inner" style="padding:10px;border-radius: 15px;z-index: 5;">
+
+    <div class="col-lg-3 paper-meta" style="background-image: url(<%= pretty_card_image(paper) %>);background-size: cover; background-position: center;border-radius: 10px;">
+    </div>
+    
     <div class="col-lg-9">
-      <%= pretty_status_badge(paper) %> <%= time_words(paper) %>
-      <h2 class="paper-title"><%= link_to paper.title, paper.seo_url %>
+    <%= link_to paper.book_exec_url, target: "_blank" do %>
+    <%= evidence_pretty_status_badge(paper) %> <% end %> <%=evidence_pretty_archive_badge(paper)%> <%=evidence_pretty_prpub_badge(paper)%>
+      <%= time_words(paper) %>
+      <h2 class="paper-title"><%= link_to paper.title, paper.book_exec_url %>
       </h2>
       <% paper.language_tags.each do |tag| %>
       <span class="badge-lang"><%= link_to tag, papers_by_language_path(language: tag) %></span>
       <% end %>
-    </div>
-    <div class="col-lg-3 paper-meta">
-      <div class="submitted_by">
-        <%= link_to submittor_github(paper), target: "_blank" do %>
-        <%= image_tag submittor_avatar(paper), size: "24x24" %>
-        <%= paper.submitting_author.pretty_github_username %>
-        <% end %>
-      </div>
+      <p style="font-size:11px;margin-top:5px;"><%= pretty_authors_card(paper.metadata_authors) %></p>
       <div class="doi">
         <% if paper.doi.blank? %>
         <%= image_tag 'doi.svg' %><%= link_to "Pending", paper_path(paper) %>
         <% else %>
-        <%= image_tag 'doi.svg' %><%= link_to paper.doi, paper.seo_url %>
+        <%= image_tag 'doi.svg' %><%= paper.doi %>
         <% end %>
       </div>
     </div>
