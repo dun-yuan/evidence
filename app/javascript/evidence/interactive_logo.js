@@ -61,14 +61,26 @@ document.addEventListener("DOMContentLoaded", function () {
             initialTooltip.style.borderRadius = "50%"; // Make it circular
             initialTooltip.style.fontSize = "25px";
             initialTooltip.style.zIndex = "1000";
-            initialTooltip.style.pointerEvents = "none";
+            initialTooltip.style.pointerEvents = "auto"; // Change from 'none' to 'auto' to enable touch events
             initialTooltip.style.display = "flex"; // Use flexbox for centering
             initialTooltip.style.alignItems = "center"; // Center vertically
             initialTooltip.style.justifyContent = "center"; // Center horizontally
             initialTooltip.style.textAlign = "center";
             initialTooltip.style.lineHeight = "1";
             initialTooltip.style.padding = "20px"; // Add padding inside the circle
-            initialTooltip.innerHTML = "<div style='width:100%;'><p style='font-size:50px; display:block;text-align:center;'>🍃</p><p style='display:block; width:100%; margin-bottom:10px'><span style='font-size:30px; font-weight:bold; color:white;text-shadow: 2px 2px 3px #394459;'>What brings a preprint to life?</span></p><p style='display:block; width:100%; text-shadow: 2px 2px 3px #394459;'>Tap or hover over the wiggling leaves behind to find out as you color up the logo!</p></div>";
+            initialTooltip.innerHTML = `<div style='width:100%;'>
+                <p style='font-size:50px; display:block;text-align:center;'>🍃</p>
+                <p style='display:block; width:100%; margin-bottom:10px'>
+                    <span style='font-size:30px; font-weight:bold; color:white;text-shadow: 2px 2px 3px #394459;'>
+                        What brings a preprint to life?
+                    </span>
+                </p>
+                <p style='display:block; width:100%; text-shadow: 2px 2px 3px #394459;'>
+                    ${('ontouchstart' in window) 
+                        ? 'Tap the wiggling leaves behind to find out as you color up the logo! <br><br> Touch to start' 
+                        : 'Hover over the wiggling leaves behind to find out as you color up the logo! <br><br> Click to start'}
+                </p>
+            </div>`;
             
             // Position the tooltip to snap at the center of the logo
             const updateTooltipPosition = () => {
@@ -147,9 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (currentActiveElement && currentActiveElement !== element) {
                             const currentPath = currentActiveElement.querySelector("path");
                             currentPath.classList.remove("pulsing");
-                            if (!hasBeenInteracted) {
-                                currentActiveElement.classList.add("subtle-wiggling");
-                            }
+                            currentActiveElement.classList.remove("subtle-wiggling");
                             isFlipped = false;
                         }
 
@@ -254,6 +264,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     element.addEventListener('touchstart', (e) => {
                         e.preventDefault();
+                        
+                        // Remove tooltip immediately on any touch
+                        if (initialTooltip && initialTooltip.parentNode) {
+                            initialTooltip.remove();
+                        }
+                        
                         if (isFlipped) {
                             handleTouchEnd();
                         } else {
@@ -266,6 +282,31 @@ document.addEventListener("DOMContentLoaded", function () {
                     element.addEventListener("mouseleave", handleMouseLeave);
                 }
             });
+            
+            // Add touch/click events for the tooltip itself
+            if ('ontouchstart' in window) {
+                // Mobile behavior
+                initialTooltip.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    if (initialTooltip.parentNode) {
+                        initialTooltip.remove();
+                    }
+                }, { passive: false });
+                
+                // Global one-time touch handler for mobile
+                document.addEventListener('touchstart', (e) => {
+                    if (initialTooltip && initialTooltip.parentNode) {
+                        initialTooltip.remove();
+                    }
+                }, { once: true, passive: false });
+            } else {
+                // Desktop behavior - just use click (hover behavior is handled elsewhere)
+                initialTooltip.addEventListener('click', () => {
+                    if (initialTooltip.parentNode) {
+                        initialTooltip.remove();
+                    }
+                });
+            }
         })
         .catch(error => console.error("Error loading SVG:", error));
 });
