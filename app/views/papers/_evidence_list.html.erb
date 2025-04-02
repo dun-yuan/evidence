@@ -1,7 +1,6 @@
 <% papers.each do |paper| %>
 <% unless paper.submitted? %>
 <%= javascript_include_tag 'evidence/card_leaves' %>
-<%= javascript_include_tag 'evidence/interactive_logo' %>
 <div class="evidence-paper-card" >
   <div class="row" id="evidence-paper-card-inner" style="padding:10px;border-radius: 15px;z-index: 5;">
 

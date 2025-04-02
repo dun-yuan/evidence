@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     `;
     document.head.appendChild(styleSheet);
 
@@ -49,23 +54,40 @@ document.addEventListener("DOMContentLoaded", function () {
             // Make tooltip responsive
             const initialTooltip = document.createElement("div");
             initialTooltip.style.position = "absolute";
-            initialTooltip.style.padding = "8px";
-            initialTooltip.style.background = "rgba(28.24%,50.2%,60%,80%)";
+            initialTooltip.style.background = "linear-gradient(45deg,  rgba(255, 5, 251, 0.9), rgba(249, 124, 12, 0.9), rgba(55,202,226,0.9), rgba(101,155,89,0.9), rgba(178,86,161,0.9), rgba(111, 0, 183, 0.9))";
+            initialTooltip.style.backgroundSize = "400% 400%";
+            initialTooltip.style.animation = "gradient-animation 15s ease infinite";
             initialTooltip.style.color = "#fff";
-            initialTooltip.style.borderRadius = "5px";
-            initialTooltip.style.fontSize = "14px";
+            initialTooltip.style.borderRadius = "50%"; // Make it circular
+            initialTooltip.style.fontSize = "25px";
             initialTooltip.style.zIndex = "1000";
             initialTooltip.style.pointerEvents = "none";
-            initialTooltip.style.maxWidth = "80vw"; // Make tooltip width responsive
-            initialTooltip.style.textAlign = "center"; // Center text for better mobile display
-            initialTooltip.textContent = "Tap or hover over leaves to color up the building blocks of a living preprint!";
+            initialTooltip.style.display = "flex"; // Use flexbox for centering
+            initialTooltip.style.alignItems = "center"; // Center vertically
+            initialTooltip.style.justifyContent = "center"; // Center horizontally
+            initialTooltip.style.textAlign = "center";
+            initialTooltip.style.lineHeight = "1";
+            initialTooltip.style.padding = "20px"; // Add padding inside the circle
+            initialTooltip.innerHTML = "<div style='width:100%;'><p style='font-size:50px; display:block;text-align:center;'>🍃</p><p style='display:block; width:100%; margin-bottom:10px'><span style='font-size:30px; font-weight:bold; color:white;text-shadow: 2px 2px 3px #394459;'>What brings a preprint to life?</span></p><p style='display:block; width:100%; text-shadow: 2px 2px 3px #394459;'>Tap or hover over the wiggling leaves behind to find out as you color up the logo!</p></div>";
             
-            // Position the tooltip over the center of the SVG
-            const svgRect = svg.getBoundingClientRect();
-            initialTooltip.style.left = `${svgRect.left + svgRect.width/2}px`;
-            initialTooltip.style.top = `${svgRect.top - 15}px`;
-            initialTooltip.style.transform = "translate(-50%, -50%)";
+            // Position the tooltip to snap at the center of the logo
+            const updateTooltipPosition = () => {
+              const svgRect = svg.getBoundingClientRect();
+              // Set width and height to make it cover the logo and scale with it
+              const diameter = Math.max(svgRect.width, svgRect.height) * 1.1; // Make it slightly larger than the logo
+              initialTooltip.style.width = `${diameter}px`;
+              initialTooltip.style.height = `${diameter}px`;
+              initialTooltip.style.left = `${svgRect.left + svgRect.width/2}px`;
+              initialTooltip.style.top = `${svgRect.top + svgRect.height/2}px`;
+              initialTooltip.style.transform = "translate(-50%, -50%)";
+            };
             
+            // Initial positioning
+            updateTooltipPosition();
+            
+            // Update position on window resize to ensure it scales with the logo
+            window.addEventListener('resize', updateTooltipPosition);
+
             document.body.appendChild(initialTooltip);
 
             // Remove tooltip on first interaction
