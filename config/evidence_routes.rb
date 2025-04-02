@@ -66,11 +66,19 @@ Rails.application.routes.draw do
   get '/papers/year/:year', to: "papers#filter", as: 'papers_by_year'
   get '/papers/:id/status.svg', to: "papers#status", format: "svg", as: 'status_badge'
 
-  doi_prefix_name = Rails.application.settings[:abbreviation].downcase || "joss"
+  doi_prefix_name = Rails.application.settings[:abbreviation].downcase || "evidence"
+  doi_prefix = Rails.application.settings[:doi_prefix] || "10.55458"
+
+  get '/papers/:doi/status.svg', to: "papers#status", format: "svg", constraints: { doi: /#{doi_prefix}\/#{doi_prefix_name}\.\d{5}R?/}
+  # TEMPORARY REDIRECT TO NEUROLIBRE
+  # get '/papers/:doi', to: "papers#show", constraints: { doi: /#{doi_prefix}\/#{doi_prefix_name}\.\d{5}R?/}
+  get '/papers/:doi', to: redirect { |params, request|
+    doi_parts = params[:doi].split('.')
+    suffix = doi_parts.last
+    "https://neurolibre.org/papers/10.55458/neurolibre.#{suffix}"
+  }, constraints: { doi: /#{doi_prefix}\/#{doi_prefix_name}\.\d{5}R?/}
   
-  get '/papers/:doi/status.svg', to: "papers#status", format: "svg", constraints: { doi: /10.55458\/#{doi_prefix_name}\.\d{5}R?/}
-  get '/papers/:doi', to: "papers#show", constraints: { doi: /10.21105\/#{doi_prefix_name}\.\d{5}R?/}
-  get '/papers/:doi.:format', to: "papers#show", constraints: { doi: /10.21105\/#{doi_prefix_name}\.\d{5}R?/}
+  get '/papers/:doi.:format', to: "papers#show", constraints: { doi: /#{doi_prefix}\/#{doi_prefix_name}\.\d{5}R?/}
 
   get '/editor_profile', to: 'editors#profile', as: 'editor_profile'
   patch '/update_editor_profile', to: 'editors#update_profile', as: 'update_editor_profile'
@@ -90,7 +98,7 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get "/signout" => "sessions#destroy", as: :signout
 
-  get '/blog' => redirect("http://blog.joss.theoj.org"), as: :blog
+  get '/blog' => redirect("https://conp.ca/open-publishing"), as: :blog
 
   get '/badges/reviewed_by/:reviewer', to: "badges#reviewed_by", format: "svg", as: "badges_by_reviewer"
 
@@ -106,7 +114,7 @@ Rails.application.routes.draw do
   post '/papers/api_withdraw', to: 'dispatch#api_withdraw'
   post '/dispatch', to: 'dispatch#github_receiver', format: 'json'
 
-  # resources :templates, only: [:index, :show]
+  resources :templates, only: [:index, :show]
 
   root to: 'home#index'
 end

@@ -286,7 +286,8 @@ class PapersController < ApplicationController
   end
 
   def valid_doi?
-    if params[:doi] && params[:doi].include?("10.21105")
+    doi_prefix = Rails.application.settings[:doi_prefix]
+    if params[:doi] && params[:doi].include?(doi_prefix)
       return true
     else
       return false

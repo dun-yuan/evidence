@@ -1,6 +1,7 @@
 # Changing this file necessitates a server restart
 name: "Evidence Living Preprints"
 abbreviation: "Evidence"
+doi_prefix: "10.55458"
 issn: ""
 tagline: "a <strong>next-generation</strong> preprint server for all sciences, going above, beyond, and forward from PDFs."
 logo_url: "https://github.com/evidencepub/brand/blob/main/banner/png/banner_white_plain.png?raw=true"

@@ -323,7 +323,7 @@ class Paper < ApplicationRecord
   # version if no DOI is set.
   def seo_url
     if accepted?
-      "#{Rails.application.settings["url"]}/papers/10.21105/#{journal_id}"
+      "#{Rails.application.settings["url"]}/papers/#{Rails.application.settings[:doi_prefix]}/#{journal_id}"
     else
       "#{Rails.application.settings["url"]}/papers/#{to_param}"
     end
@@ -504,7 +504,8 @@ class Paper < ApplicationRecord
   end
 
   def status_badge_url
-    "#{Rails.application.settings["url"]}/papers/10.21105/#{journal_id}/status.svg"
+    doi_prefix = Rails.application.settings[:doi_prefix]
+    "#{Rails.application.settings["url"]}/papers/#{doi_prefix}/#{journal_id}/status.svg"
   end
 
   def markdown_code

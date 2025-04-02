@@ -21,7 +21,7 @@
         <% if paper.doi.blank? %>
         <%= image_tag 'doi.svg' %><%= link_to "Pending", paper_path(paper) %>
         <% else %>
-        <%= image_tag 'doi.svg' %><%= paper.doi %>
+        <%= image_tag 'doi.svg' %><%= link_to paper.doi, paper.seo_url %>
         <% end %>
       </div>
     </div>
