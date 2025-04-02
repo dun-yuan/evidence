@@ -1,0 +1,21 @@
+templates:
+  - id: python-skeleton
+    title: Python Skeleton
+    description: A basic MyST article template that can be used as a skeleton for Pythonic preprints.
+    icon: 🐍🩻
+    languages: ["Python","Plotly","Pandas"]
+    github_url: https://github.com/neurolibre/mystical-article
+    
+  - id: interactive-course
+    title: An Interactive Course
+    description: A large MyST book featuring a lecture on quantitative MRI. A great template to repurpose for your own course.
+    icon: 📚🧠
+    languages: ["Python", "Numpy", "scipy", "plotly","nibabel"]
+    github_url: https://github.com/qMRLab/mooc
+    
+  - id: self-evolving
+    title: Self Evolving Literature Review
+    description: A bit futuristic, this (MyST article) template uses LLMs to evolve a scoping review on the reproducibility of MRI research.
+    icon: 🧮
+    languages: ["Python", "umap-learn", "scikit-image", "scrapy"]
+    github_url: https://github.com/agahkarakuzu/mriscope 

@@ -1,0 +1,163 @@
+<div class="container my-5">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1>Templates</h1>
+      <p class="lead">Select a template to quickly start your living preprint</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <% @templates.each do |template| %>
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 template-card">
+          <div class="card-body">
+            <div class="template-icon mb-3">
+              <span><%= template["icon"] %></span>
+            </div>
+            <h5 class="card-title"><%= template["title"] %></h5>
+            <p class="card-text"><%= template["description"] %></p>
+            
+            <div class="language-badges">
+              <% if template["languages"].present? %>
+                <% template["languages"].each do |language| %>
+                  <span class="badge badge-primary"><%= language %></span>
+                <% end %>
+              <% end %>
+            </div>
+            
+            <% if template["github_url"].present? %>
+              <details class="github-details mt-2 mb-3" onToggle="loadRepoContents(this)">
+                <summary>Peek at runtime/data requirements</summary>
+                <div class="github-contents mt-2">
+                  <% github_parts = template["github_url"].match(/github\.com\/([^\/]+)\/([^\/]+)/) %>
+                  <% if github_parts %>
+                    <% owner = github_parts[1] %>
+                    <% repo = github_parts[2].gsub(/\.git$/, '') %>
+                    <div class="binder-files small" 
+                         data-owner="<%= owner %>" 
+                         data-repo="<%= repo %>"
+                         data-loaded="false">
+                      <div class="loading-indicator d-none">Loading...</div>
+                      <div class="content-display"></div>
+                    </div>
+                  <% else %>
+                    <span class="small text-muted">Repository details not available</span>
+                  <% end %>
+                </div>
+              </details>
+            <% end %>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <% if template["github_url"].present? %>
+              <%= link_to "Use this template", template["github_url"], class: "btn btn-primary w-100", target: "_blank" %>
+            <% else %>
+              <%= link_to "Use this template", template_path(id: template["id"]), class: "btn btn-primary w-100" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .templates-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .template-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .language-badges {
+    margin: 15px 0;
+  }
+  
+  .badge {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .badge-primary {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .btn-primary {
+    background-color: #394459;
+    color: white;
+  }
+  
+  .content-display {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #1e1e1e;
+    color: #f8f8f8;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 13px;
+    white-space: pre;
+    margin-top: 10px;
+  }
+  
+  .content-display::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .content-display::-webkit-scrollbar-track {
+    background: #2d2d2d;
+  }
+  
+  .content-display::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+  }
+  
+  .loading-indicator {
+    color: #666;
+    font-style: italic;
+    margin: 10px 0;
+  }
+</style>
+
+<script>
+  function loadRepoContents(detailsElement) {
+    if (!detailsElement.open) return;
+    
+    const binderFilesDiv = detailsElement.querySelector('.binder-files');
+    if (!binderFilesDiv || binderFilesDiv.dataset.loaded === "true") return;
+    
+    const owner = binderFilesDiv.dataset.owner;
+    const repo = binderFilesDiv.dataset.repo;
+    const loadingIndicator = binderFilesDiv.querySelector('.loading-indicator');
+    const contentDisplay = binderFilesDiv.querySelector('.content-display');
+    
+    loadingIndicator.classList.remove('d-none');
+    
+    fetch(`https://uithub.com/${owner}/${repo}/tree/main/binder?accept=text`)
+      .then(response => response.text())
+      .then(data => {
+        contentDisplay.textContent = data;
+        binderFilesDiv.dataset.loaded = "true";
+      })
+      .catch(error => {
+        contentDisplay.textContent = `Error loading content: ${error.message}`;
+        contentDisplay.style.color = "#ff6b6b";
+      })
+      .finally(() => {
+        loadingIndicator.classList.add('d-none');
+      });
+  }
+</script> 

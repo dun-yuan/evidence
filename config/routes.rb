@@ -106,5 +106,7 @@ Rails.application.routes.draw do
   post '/papers/api_withdraw', to: 'dispatch#api_withdraw'
   post '/dispatch', to: 'dispatch#github_receiver', format: 'json'
 
+  resources :templates, only: [:index, :show]
+
   root to: 'home#index'
 end
