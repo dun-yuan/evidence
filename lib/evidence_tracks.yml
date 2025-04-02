@@ -1,0 +1,500 @@
+---
+tracks:
+  neuroscience:
+    name: Neuroscience
+    short_name: neuro
+    code: 1
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Neuroscience [Life Sciences]
+    - Neuroscience (miscellaneous) [Life Sciences]
+    - Behavioral Neuroscience [Life Sciences]
+    - Cellular and Molecular Neuroscience [Life Sciences]
+    - Cognitive Neuroscience [Life Sciences]
+    - Developmental Neuroscience [Life Sciences]
+    - Neuroimaging [Life Sciences]
+    - Bioinformatics [Life Sciences]
+  ecology:
+    name: Ecology
+    short_name: ecol
+    code: 2
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Earth and Planetary Sciences [Physical Sciences]
+    - Earth and Planetary Sciences (miscellaneous) [Physical Sciences]
+    - Atmospheric Science [Physical Sciences]
+    - Computers in Earth Sciences [Physical Sciences]
+    - Earth-Surface Processes [Physical Sciences]
+    - Economic Geology [Physical Sciences]
+    - Geochemistry and Petrology [Physical Sciences]
+    - Geology [Physical Sciences]
+    - Geophysics [Physical Sciences]
+    - Geotechnical Engineering and Engineering Geology [Physical Sciences]
+    - Oceanography [Physical Sciences]
+    - Nature and Landscape Conservation [Physical Sciences]
+    - Water Science and Technology [Physical Sciences]
+    - General Environmental Science [Physical Sciences]
+    - Environmental Science (miscellaneous) [Physical Sciences]
+    - Ecological Modeling [Physical Sciences]
+    - Environmental Chemistry [Physical Sciences]
+    - Environmental Engineering [Physical Sciences]
+    - Global and Planetary Change [Physical Sciences]
+    - Health, Toxicology and Mutagenesis [Physical Sciences]
+    - Management, Monitoring, Policy and Law [Physical Sciences]
+  paleontology:
+    name: Paleontology
+    short_name: paleo
+    code: 3
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Paleontology [Earth Sciences]
+    - Paleontology (miscellaneous) [Earth Sciences]
+    - Vertebrate Paleontology [Earth Sciences]
+    - Invertebrate Paleontology [Earth Sciences]
+    - Micropaleontology [Earth Sciences]
+    - Paleobotany [Earth Sciences]
+    - Paleoecology [Earth Sciences]
+    - Taphonomy [Earth Sciences]
+    - Biostratigraphy [Earth Sciences]
+    - Paleoclimatology [Earth Sciences]
+    - Paleogeography [Earth Sciences]
+    - Paleozoology [Earth Sciences]
+    - Ichnology [Earth Sciences]
+    - Palynology [Earth Sciences]
+  evolutionary-biology:
+    name: Evolutionary Biology
+    short_name: evolb
+    code: 4
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Evolutionary Biology [Life Sciences]
+    - Molecular Evolution [Life Sciences]
+    - Population Genetics [Life Sciences]
+    - Phylogenetics [Life Sciences]
+    - Evolutionary Ecology [Life Sciences]
+    - Speciation [Life Sciences]
+    - Adaptation and Natural Selection [Life Sciences]
+    - Evolutionary Developmental Biology [Life Sciences]
+    - Human Evolution [Life Sciences]
+    - Evolutionary Genomics [Life Sciences]
+    - Coevolution [Life Sciences]
+    - Evolutionary Systematics [Life Sciences]
+    - Macroevolution [Life Sciences]
+    - Microevolution [Life Sciences]
+  zoology:
+    name: Zoology
+    short_name: zoo
+    code: 5
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Zoology [Life Sciences]
+    - Animal Behavior [Life Sciences]
+    - Animal Physiology [Life Sciences]
+    - Animal Reproduction [Life Sciences]
+    - Animal Taxonomy [Life Sciences]
+    - Comparative Anatomy [Life Sciences]
+    - Entomology [Life Sciences]
+    - Herpetology [Life Sciences]
+    - Ichthyology [Life Sciences]
+    - Mammalogy [Life Sciences]
+    - Ornithology [Life Sciences]
+    - Marine Biology [Life Sciences]
+    - Wildlife Biology [Life Sciences]
+    - Parasitology [Life Sciences]
+  genomics:
+    name: Genomics
+    short_name: genom
+    code: 6
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Genomics [Life Sciences]
+    - Genomics (miscellaneous) [Life Sciences]
+    - Functional Genomics [Life Sciences]
+    - Comparative Genomics [Life Sciences]
+    - Structural Genomics [Life Sciences]
+    - Metagenomics [Life Sciences]
+    - Pharmacogenomics [Life Sciences]
+    - Population Genomics [Life Sciences]
+    - Epigenomics [Life Sciences]
+    - Genome Editing [Life Sciences]
+    - Bioinformatics [Life Sciences]
+    - Genome Evolution [Life Sciences]
+    - Transcriptomics [Life Sciences]
+    - Proteomics [Life Sciences]
+    - Metabolomics [Life Sciences]
+  mathematics-and-computational-biology:
+    name: Mathematics and Computational Biology
+    short_name: mathcompbio
+    code: 7
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Mathematical Biology [Interdisciplinary]
+    - Bioinformatics [Interdisciplinary]
+    - Biostatistics [Interdisciplinary]
+    - Mathematical Modeling [Interdisciplinary]
+    - Systems Biology [Interdisciplinary]
+    - Computational Neuroscience [Interdisciplinary]
+    - Computational Genomics [Interdisciplinary]
+    - Computational Proteomics [Interdisciplinary]
+    - Computational Ecology [Interdisciplinary]
+    - Computational Evolution [Interdisciplinary]
+    - Biological Network Analysis [Interdisciplinary]
+    - Machine Learning in Biology [Interdisciplinary]
+    - Biomathematics [Interdisciplinary]
+    - Theoretical Biology [Interdisciplinary]
+  animal-science:
+    name: Animal Science
+    short_name: animsc
+    code: 8
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Animal Science [Agricultural Sciences]
+    - Animal Nutrition [Agricultural Sciences]
+    - Animal Breeding [Agricultural Sciences]
+    - Animal Genetics [Agricultural Sciences]
+    - Animal Health [Agricultural Sciences]
+    - Animal Welfare [Agricultural Sciences]
+    - Livestock Production [Agricultural Sciences]
+    - Dairy Science [Agricultural Sciences]
+    - Poultry Science [Agricultural Sciences]
+    - Aquaculture [Agricultural Sciences]
+    - Animal Biotechnology [Agricultural Sciences]
+    - Veterinary Sciences [Agricultural Sciences]
+    - Animal Reproduction [Agricultural Sciences]
+    - Animal Product Technology [Agricultural Sciences]
+  forest-and-wood-science:
+    name: Forest and Wood Science
+    short_name: forest
+    code: 9
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Forestry [Environmental Sciences]
+    - Forest Ecology [Environmental Sciences]
+    - Forest Management [Environmental Sciences]
+    - Silviculture [Environmental Sciences]
+    - Forest Genetics [Environmental Sciences]
+    - Forest Pathology [Environmental Sciences]
+    - Forest Entomology [Environmental Sciences]
+    - Forest Hydrology [Environmental Sciences]
+    - Agroforestry [Environmental Sciences]
+    - Urban Forestry [Environmental Sciences]
+    - Wood Science [Environmental Sciences]
+    - Wood Technology [Environmental Sciences]
+    - Wood Chemistry [Environmental Sciences]
+    - Forest Products [Environmental Sciences]
+  archeology:
+    name: Archeology
+    short_name: archeol
+    code: 10
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Archeology [Social Sciences]
+    - Prehistoric Archeology [Social Sciences]
+    - Historical Archeology [Social Sciences]
+    - Classical Archeology [Social Sciences]
+    - Medieval Archeology [Social Sciences]
+    - Ethnoarcheology [Social Sciences]
+    - Zooarcheology [Social Sciences]
+    - Archaeobotany [Social Sciences]
+    - Geoarcheology [Social Sciences]
+    - Bioarcheology [Social Sciences]
+    - Landscape Archeology [Social Sciences]
+    - Maritime Archeology [Social Sciences]
+    - Archaeological Science [Social Sciences]
+    - Cultural Heritage Management [Social Sciences]
+  network-science:
+    name: Network Science
+    short_name: netsci
+    code: 11
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Network Science [Interdisciplinary]
+    - Complex Networks [Interdisciplinary]
+    - Social Network Analysis [Interdisciplinary]
+    - Biological Networks [Interdisciplinary]
+    - Technological Networks [Interdisciplinary]
+    - Information Networks [Interdisciplinary]
+    - Network Dynamics [Interdisciplinary]
+    - Network Modeling [Interdisciplinary]
+    - Network Visualization [Interdisciplinary]
+    - Network Statistics [Interdisciplinary]
+    - Network Security [Interdisciplinary]
+    - Network Economics [Interdisciplinary]
+    - Network Neuroscience [Interdisciplinary]
+    - Computational Social Science [Interdisciplinary]
+  ecotoxicology-and-environmental-chemistry:
+    name: Ecotoxicology and Environmental Chemistry
+    short_name: ecotoxenvchem
+    code: 12
+    aeics:
+    - Agah Karakuzu
+    fields:
+    - General Ecotoxicology [Environmental Sciences]
+    - Aquatic Toxicology [Environmental Sciences]
+    - Terrestrial Ecotoxicology [Environmental Sciences]
+    - Environmental Fate and Transport [Environmental Sciences]
+    - Bioaccumulation [Environmental Sciences]
+    - Biomonitoring [Environmental Sciences]
+    - Environmental Risk Assessment [Environmental Sciences]
+    - Analytical Environmental Chemistry [Environmental Sciences]
+    - Atmospheric Chemistry [Environmental Sciences]
+    - Soil Chemistry [Environmental Sciences]
+    - Water Chemistry [Environmental Sciences]
+    - Pollutant Remediation [Environmental Sciences]
+    - Emerging Contaminants [Environmental Sciences]
+    - Environmental Biogeochemistry [Environmental Sciences]
+  infections:
+    name: Infections
+    short_name: infect
+    code: 13
+    aeics:
+    - Agah Karakuzu
+    fields: []
+  microbiology:
+    name: Microbiology
+    short_name: ubiol
+    code: 14
+    aeics:
+    - Agah Karakuzu
+    fields: []
+  health-and-movement-science:
+    name: Health and Movement Science
+    short_name: healthmov
+    code: 15
+    aeics:
+    - Agah Karakuzu
+    fields: []
+  registered-reports:
+    name: Registered Reports
+    short_name: regrep
+    code: 16
+    aeics:
+    - Agah Karakuzu
+    fields: []
+  organizational-studies:
+    name: Organizational Studies
+    short_name: orgstudy
+    code: 17
+    aeics:
+    - Agah Karakuzu
+    fields: []
+  psychology:
+    name: Psychology
+    short_name: psych
+    code: 18
+    aeics:
+    - Agah Karakuzu
+    fields:
+      - General Psychology [Social Sciences & Humanities]
+      - Psychology (miscellaneous) [Social Sciences & Humanities]
+      - Applied Psychology [Social Sciences & Humanities]
+      - Clinical Psychology [Social Sciences & Humanities]
+      - Developmental and Educational Psychology [Social Sciences & Humanities]
+      - Experimental and Cognitive Psychology [Social Sciences & Humanities]
+      - Neuropsychology and Physiological Psychology [Social Sciences & Humanities]
+      - Social Psychology [Social Sciences & Humanities]
+  nutrition:
+    name: Nutrition
+    short_name: nutri
+    code: 19
+    aeics:
+    - Agah Karakuzu
+    fields: []
+  astronomy-astrophysics-and-space-sciences:
+    name: Astronomy, Astrophysics, and Space Sciences
+    short_name: aass
+    code: 20
+    aeics:
+    - Agah Karakuzu
+    fields:
+      - General Astronomy [Physical Sciences]
+      - Astronomy (miscellaneous) [Physical Sciences]
+      - Astronomy and Astrophysics [Physical Sciences]
+      - Space and Planetary Science [Physical Sciences]
+  data-science-artificial-intelligence-and-machine-learning:
+    name: Data Science, Artificial Intelligence, and Machine Learning
+    short_name: dsais
+    code: 21
+    aeics:
+    - Agah Karakuzu
+    fields:
+      - Artificial Intelligence & Machine Learning (General) [Physical Sciences]
+      - Distributed Artificial Intelligence [Physical Sciences]
+      - Statistics and Probability [Physical Sciences]
+      - Computer Vision and Pattern Recognition [Physical Sciences]
+      - "Artificial Intelligence: Applications and Expert Systems [Physical Sciences]"
+      - "Artificial Intelligence: Automatic Programming [Physical Sciences]"
+      - "Artificial Intelligence: Deduction and Theorem Proving [Physical Sciences]"
+      - "Artificial Intelligence: Knowledge Representation Formalisms and Methods [Physical Sciences]"
+      - "Artificial Intelligence: Natural Language Processing [Physical Sciences]"
+      - "Artificial Intelligence: Problem Solving, Control Methods, and Search [Physical Sciences]"
+      - "Artificial Intelligence: Robotics [Physical Sciences]"
+      - "Data Science: Statistical Libraries and Tools [Physical Sciences]"
+      - "Data Science: Modeling and Simulation [Physical Sciences]"
+      - "Data Science: Decision Analysis [Physical Sciences]"
+      - "Data Science: Linear Programming and Optimization [Physical Sciences]"
+  biomedical-engineering-biosciences-chemistry-and-materials:
+    name: Biomedical Engineering, Biosciences, Chemistry, and Materials
+    short_name: bcm
+    code: 22
+    aeics:
+    - Agah Karakuzu
+    fields:
+      - Biomaterials [Engineering]
+      - Tissue Engineering [Engineering]
+      - Biomedical Devices [Engineering]
+      - Biosensors [Engineering]
+      - Medical Imaging [Engineering]
+      - Biomedical Optics [Engineering]
+      - Biophotonics [Engineering]
+      - Biomedical Signal Processing [Engineering]
+      - Bioinstrumentation [Engineering]
+      - Neural Engineering [Engineering]
+      - Rehabilitation Engineering [Engineering]
+      - Biomechanics [Engineering]
+      - Bionanotechnology [Engineering]
+      - Synthetic Biology [Life Sciences]
+      - Medicinal Chemistry [Chemical Sciences]
+      - Pharmaceutical Chemistry [Chemical Sciences]
+      - Biomedical Engineering [Physical Sciences]
+      - Bioengineering [Physical Sciences]
+      - General Chemistry [Physical Sciences]
+      - Analytical Chemistry [Physical Sciences]
+      - Electrochemistry [Physical Sciences]
+      - Inorganic Chemistry [Physical Sciences]
+      - Organic Chemistry [Physical Sciences]
+      - Physical and Theoretical Chemistry [Physical Sciences]
+      - Spectroscopy [Physical Sciences]
+      - Colloid and Surface Chemistry [Physical Sciences]
+      - Biochemistry [Life Sciences]
+      - Biophysics [Life Sciences]
+      - Biotechnology [Life Sciences]
+      - Cell Biology [Life Sciences]
+      - Developmental Biology [Life Sciences]
+      - Molecular Biology [Life Sciences]
+      - Structural Biology [Life Sciences]
+      - Biomaterials [Physical Sciences]
+      - Materials Chemistry [Physical Sciences]
+      - Surfaces and Interfaces [Physical Sciences]
+      - Polymers and Plastics [Physical Sciences]
+      - Surfaces, Coatings and Films [Physical Sciences]
+      - General Pharmacology, Toxicology and Pharmaceutics [Life Sciences]
+      - Pharmacology, Toxicology and Pharmaceutics (miscellaneous) [Life Sciences]
+      - Drug Discovery [Life Sciences]
+      - Pharmaceutical Science [Life Sciences]
+      - Pharmacology [Life Sciences]
+      - Toxicology [Life Sciences]
+      - Mechanics of Materials [Physical Sciences]
+      - General Medicine [Health Sciences]
+      - Medicine (miscellaneous) [Health Sciences]
+      - Anatomy [Health Sciences]
+      - Anesthesiology and Pain Medicine [Health Sciences]
+      - Biochemistry (medical) [Health Sciences]
+      - Cardiology and Cardiovascular Medicine [Health Sciences]
+      - Critical Care and Intensive Care Medicine [Health Sciences]
+      - Complementary and Alternative Medicine [Health Sciences]
+      - Dermatology [Health Sciences]
+      - Drug Guides [Health Sciences]
+      - Embryology [Health Sciences]
+      - Emergency Medicine [Health Sciences]
+      - Endocrinology, Diabetes and Metabolism [Health Sciences]
+      - Epidemiology [Health Sciences]
+      - Family Practice [Health Sciences]
+      - Gastroenterology [Health Sciences]
+      - Genetics (clinical) [Health Sciences]
+      - Geriatrics and Gerontology [Health Sciences]
+      - Health Informatics [Health Sciences]
+      - Health Policy [Health Sciences]
+      - Hematology [Health Sciences]
+      - Hepatology [Health Sciences]
+      - Histology [Health Sciences]
+      - Immunology and Allergy [Health Sciences]
+      - Internal Medicine [Health Sciences]
+      - Infectious Diseases [Health Sciences]
+      - Microbiology (medical) [Health Sciences]
+      - Nephrology [Health Sciences]
+      - Neurology (clinical) [Health Sciences]
+      - Obstetrics and Gynecology [Health Sciences]
+      - Oncology [Health Sciences]
+      - Ophthalmology [Health Sciences]
+      - Orthopedics and Sports Medicine [Health Sciences]
+      - Otorhinolaryngology [Health Sciences]
+      - Pathology and Forensic Medicine [Health Sciences]
+      - Pediatrics, Perinatology and Child Health [Health Sciences]
+      - Pharmacology (medical) [Health Sciences]
+      - Physiology (medical) [Health Sciences]
+      - Psychiatry and Mental Health [Health Sciences]
+      - Public Health, Environmental and Occupational Health [Health Sciences]
+      - Pulmonary and Respiratory Medicine [Health Sciences]
+      - Radiology, Nuclear Medicine and Imaging [Health Sciences]
+      - Rehabilitation [Health Sciences]
+      - Reproductive Medicine [Health Sciences]
+      - Reviews and References (medical) [Health Sciences]
+      - Rheumatology [Health Sciences]
+      - Surgery [Health Sciences]
+      - Transplantation [Health Sciences]
+      - Urology [Health Sciences]
+      - General Nursing [Health Sciences]
+      - Nursing (miscellaneous) [Health Sciences]
+      - Advanced and Specialized Nursing [Health Sciences]
+      - Assessment and Diagnosis [Health Sciences]
+      - Care Planning [Health Sciences]
+      - Community and Home Care [Health Sciences]
+      - Critical Care Nursing [Health Sciences]
+      - Emergency Nursing [Health Sciences]
+      - Fundamentals and Skills [Health Sciences]
+      - Gerontology [Health Sciences]
+      - Issues, Ethics and Legal Aspects [Health Sciences]
+      - Leadership and Management [Health Sciences]
+      - LPN and LVN [Health Sciences]
+      - Maternity and Midwifery [Health Sciences]
+      - Medical and Surgical Nursing [Health Sciences]
+      - Nurse Assisting [Health Sciences]
+      - Nutrition and Dietetics [Health Sciences]
+      - Oncology (nursing) [Health Sciences]
+      - Pathophysiology [Health Sciences]
+      - Pediatrics [Health Sciences]
+      - Pharmacology (nursing) [Health Sciences]
+      - Psychiatric Mental Health [Health Sciences]
+      - Research and Theory [Health Sciences]
+      - Review and Exam Preparation [Health Sciences]
+      - General Veterinary [Health Sciences]
+      - Veterinary (miscellaneous) [Health Sciences]
+      - Equine [Health Sciences]
+      - Food Animals [Health Sciences]
+      - Small Animals [Health Sciences]
+      - General Dentistry [Health Sciences]
+      - Dentistry (miscellaneous) [Health Sciences]
+      - Dental Assisting [Health Sciences]
+      - Dental Hygiene [Health Sciences]
+      - Oral Surgery [Health Sciences]
+      - Orthodontics [Health Sciences]
+      - Periodontics [Health Sciences]
+      - General Health Professions [Health Sciences]
+      - Health Professions (miscellaneous) [Health Sciences]
+      - Chiropractics [Health Sciences]
+      - Complementary and Manual Therapy [Health Sciences]
+      - Emergency Medical Services [Health Sciences]
+      - Health Information Management [Health Sciences]
+      - Medical Assisting and Transcription [Health Sciences]
+      - Medical Laboratory Technology [Health Sciences]
+      - Medical Terminology [Health Sciences]
+      - Occupational Therapy [Health Sciences]
+      - Optometry [Health Sciences]
+      - Pharmacy [Health Sciences]
+      - Physical Therapy, Sports Therapy and Rehabilitation [Health Sciences]
+      - Podiatry [Health Sciences]
+      - Radiological and Ultrasound Technology [Health Sciences]
+      - Respiratory Care [Health Sciences]
+      - Speech and Hearing [Health Sciences]
