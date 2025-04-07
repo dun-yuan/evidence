@@ -195,7 +195,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             componentDescription.style.color = color;
                         }
                         
-                        cardInner.classList.add('card-flip');
+                        // Only flip the card if this is not the letter-e element
+                        if (id !== "letter-e") {
+                            cardInner.classList.add('card-flip');
+                        }
                         currentActiveElement = element;
                     };
 
@@ -247,7 +250,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             componentDescription.style.color = color;
                         }
                         
-                        cardInner.classList.add('card-flip');
+                        // Only flip the card if this is not the letter-e element
+                        if (id !== "letter-e") {
+                            cardInner.classList.add('card-flip');
+                        }
                     };
 
                     const handleMouseLeave = () => {

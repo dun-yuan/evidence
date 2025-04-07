@@ -44,6 +44,7 @@ gem 'puma'
 # Use Redis for Action Cable
 gem "redis", "~> 5.0"
 
+# Evidence specific gems
 gem 'font-awesome-sass', '~> 6.0'
 
 group :development, :test do

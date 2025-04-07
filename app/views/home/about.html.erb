@@ -3,8 +3,8 @@
     <div class="col">
       <div class="hero-small">
         <div class="text-center m-auto">
-          <h1>About the <%= Rails.application.settings['name'] %></h1>
-          <p class="lead">The <%= Rails.application.settings['name'] %> is <%= setting(:tagline).html_safe %></p>
+          <h1>About <%= Rails.application.settings['name'] %></h1>
+          <p class="lead"><%= Rails.application.settings['abbreviation'] %> is <%= setting(:tagline).html_safe %></p>
         </div>
       </div>
     </div>
@@ -27,17 +27,17 @@
 
         <h1>Scope & submission requirements</h1>
 
-        <p>Not all software is eligible to be published in JOSS.</p>
+        <p>Evidence is meant for all scientific disciplines.</p>
 
-        <p>JOSS publishes articles about research software. This definition includes software that: solves complex modeling problems in a scientific context (physics, mathematics, biology, medicine, social science, neuroscience, engineering); supports the functioning of research instruments or the execution of research experiments; extracts knowledge from large data sets; offers a mathematical library; or similar.</p>
+        <p>We incorporated 22 publishing tracks (including 19  communities of <a href="https://peercommunityin.org/current-pcis/">Peer Review in (PCI)</a>), and additional topics to cover a wide range of scientific disciplines.</p>
 
-        <p>JOSS submissions must:</p>
+        <p>Evidence submissions must:</p>
 
         <ul>
-          <li>Be open source (i.e., have an <%= link_to "OSI-approved license", "https://opensource.org/licenses/category", :target => "_blank" %>).</li>
-          <li>Have an obvious research application.</li>
-          <li>Be feature-complete (no half-baked solutions) and be designed for maintainable extension (not one-off modifications).</li>
-          <li>Minor 'utility' packages, including 'thin' API clients, and single-function packages are not acceptable.</li>
+          <li>Source from an open-source GitHub repository (i.e., have an <%= link_to "OSI-approved code license", "https://opensource.org/licenses/category", :target => "_blank" %>) that adheres to Evidence's layout.</li>
+          <li>Have an obvious research application or an educational purpose.</li>
+          <li>Include code and data (preferably) to reproduce the results. Nevertheless, we accept text-only submissions as not all research is computational.</li>
+          <li>Pass through a decency check and a technical screening process (<b>we do not review the scientific merits</b>).</li>
         </ul>
 
         <div class="alert alert-primary" role="alert">
@@ -46,28 +46,35 @@
       </div>
 
       <div class="generic-content-item" id="editorial_board">
-        <h1>Editorial Board</h1>
+        <h3> Evidence Chair</h3>
+
+        <% if specific_editor = Editor.board.find_by(last_name: 'Stikov') %>
+          <%= render partial: "shared/editor", locals: { editor: specific_editor } %>
+        <% end %>
+
+        <h3>Chief Architect and Developer</h3>
+
+        <% if specific_editor = Editor.board.find_by(last_name: 'Karakuzu') %>
+          <%= render partial: "shared/editor", locals: { editor: specific_editor } %>
+        <% end %>
+
+        <h3>Publishing Committee</h3>
 
         <%- Editor.board.order('last_name ASC').each do |editor| %>
         <%= render partial: "shared/editor", locals: { editor: editor } %>
         <%- end %>
 
-        <h2 id="topic_editors">Topic Editors</h2>
-
         <%- Editor.topic.order('last_name ASC').each do |editor| %>
         <%= render partial: "shared/editor", locals: { editor: editor } %>
         <%- end %>
 
-        <h2 id="editors_emeritus">Editors Emeritus</h2>
-        <p><%= Editor.emeritus.order('last_name ASC').collect {|e| e.full_name
-}.join(', ') %></p>
       </div>
 
       <div class="generic-content-item" id="contact">
         <h1>Contact <%= setting(:abbreviation) %></h1>
 
         <p>
-          If you need to contact <%= setting(:abbreviation) %> privately then you can <%= mail_to "admin@theoj.org", "email us" %>.
+          If you need to contact <%= setting(:abbreviation) %> privately then you can <%= mail_to "conpdev@gmail.com", "email us" %>.
         </p>
         <% unless social_media_links.empty? %>
           <p>
@@ -86,30 +93,29 @@
           <%= link_to "Contributor Covenant", "http://contributor-covenant.org", target: "_blank" %> code of conduct.
         </p>
 
-        <p>Authors and reviewers will be required to confirm they have read our
+        <p>Authors and screeners will be required to confirm they have read our
           <%= link_to "code of conduct", "https://github.com/#{ setting(:github) }/blob/master/CODE_OF_CONDUCT.md", target: "_blank" %>,
           and are expected to adhere to it in all <%= setting(:abbreviation) %> spaces and associated interactions.</p>
       </div>
 
       <div class="generic-content-item" id="ethics">
         <h1>Ethics Guidelines</h1>
-        <p>We also want to remind authors and reviewers (and anyone else) that we expect and require ethical behavior. Some examples are:
+        <p>We also want to remind authors and screeners (and anyone else) that we expect and require ethical behavior. Some examples are:
           <ul>
             <li>All authors are obliged to provide retractions or corrections of any mistakes of which they become aware.</li>
             <li>Plagiarism (e.g., violation of another author's copyright), for both software and papers, is not allowed.</li>
             <li>Self-plagiarism (repeated publication of the same work) is not allowed.</li>
             <li>Author lists must be correct and complete. All listed authors must have made a contribution to the work, and all significant contributors should be included in the author list.</li>
-            <li>Reviews should be accurate and non-fraudulent. Examples of concerns are: Authors should not suggest reviewers who are not real people or have conflicts (see <a href="https://joss.readthedocs.io/en/latest/reviewer_guidelines.html#joss-conflict-of-interest-policy" target="_blank">conflict of interest policy</a> for details). Reviewers and editors must disclose conflicts. Bribes for authors, reviewers, editors are not permitted.</li>
           </ul>
         </p>
 
         <b>Allegations of misconduct</b>
-        <p>Allegations of research misconduct associated with a <%= setting(:abbreviation) %> submission (either during review, or post-publication) are handled by the Open Journals ethics team. Reports should be sent privately to <%= mail_to "admin@theoj.org", "our editorial team" %> at which point the report will be triaged by the Open Journals ethics officer to determine the nature and severity of the case. Options available to the Open Journals ethics officer range from recommending no action to instigating a full investigation by the Open Journals ethics team which may result in researchers' institutions and funders being notified and the <%= setting(:abbreviation) %> being retracted.</p>
+        <p>Allegations of research misconduct associated with a <%= setting(:abbreviation) %> submission (either during review, or post-publication) are handled by the Evidence ethics team. Reports should be sent privately to <%= mail_to "admin@theoj.org", "our editorial team" %> at which point the report will be triaged by the Evidence ethics officer to determine the nature and severity of the case. Options available to the Evidence ethics officer range from recommending no action to instigating a full investigation by the Evidence ethics team which may result in researchers' institutions and funders being notified and the <%= setting(:abbreviation) %> being retracted.</p>
 
         <p>Although <%= setting(:abbreviation) %> is not yet a member of <%= link_to "COPE", "https://publicationethics.org" %> (application pending), our processes are modeled on the <%= link_to "COPE guideline procedures for ethics complaints", "https://publicationethics.org/files/publication-ethics-editorial-office-cope-flowchart.pdf" %>.</p>
 
         <b>Complaints process</b>
-        <p>Complaints about the conduct or decision making of the <%= setting(:abbreviation) %> editorial team can be sent to the <%= mail_to "admin@theoj.org", "Open Journals governance team" %>.</p>
+        <p>Complaints about the conduct or decision making of the <%= setting(:abbreviation) %> editorial team can be sent to the <%= mail_to "admin@theoj.org", "Evidence governance team" %>.</p>
 
         <h2 id="ethics-and-malpractice"><%= setting(:abbreviation) %> Publication Ethics and Malpractice Statement</h2>
         <b>Editorial Board</b>
@@ -174,71 +180,46 @@
 
         <b>Ownership and management</b>
         <ul>
-          <li>Information about the ownership and/or management of a journal is clearly indicated on the journal’s website (see <a href="http://www.theoj.org">http://www.theoj.org</a>).</li>
-          <li>JOSS and the <a href="http://www.theoj.org">Open Journals</a> do not use organizational names that would mislead potential authors and editors about the nature of the journal’s owner.</li>
+          <li><a href="https://evidencepub.io">Evidence</a> do not use organizational names that would mislead potential authors and editors about the nature of the platform's owner.</li>
         </ul>
 
         <b>Website</b>
         <ul>
           <li>
-            The JOSS website (see <a href="<%= setting(:url) %>"><%= setting(:url) %></a> and <a href="<%= setting(:url) %>/about"><%= setting(:url) %>/about</a>), including the text that it contains, demonstrates that care has been taken to ensure high ethical and professional standards.
+            Evidence website (see <a href="<%= setting(:url) %>"><%= setting(:url) %></a> and <a href="<%= setting(:url) %>/about"><%= setting(:url) %>/about</a>), including the text that it contains, demonstrates that care has been taken to ensure high ethical and professional standards.
           </li>
         </ul>
 
         <b>Publishing schedule</b>
         <ul>
-          <li><%= setting(:abbreviation) %> immediately publishes accepted articles; it is not a serial publication.</li>
+          <li><%= setting(:abbreviation) %> immediately publishes accepted living preprints; it is not a serial publication.</li>
         </ul>
 
         <b>Name of journal</b>
         <ul>
           <li>
-            As far as we know, the journal name (<%= setting(:name) %> (<%= setting(:abbreviation) %>)) is unique and not one that is easily confused with another journal or that might mislead potential authors and readers about the journal’s origin or association with other journals.
+            As far as we know, the platform name (<%= setting(:name) %> (<%= setting(:abbreviation) %>)) is unique and not one that is easily confused with another journal or that might mislead potential authors and readers about the journal’s origin or association with other journals.
           </li>
         </ul>
       </div>
 
       <div class="generic-content-item" id="costs">
         <h1>Cost and Sustainability Model</h1>
-        <p><%= setting(:name) %> is an open access journal <em>committed to running at minimal costs, with zero publication fees (<a href="https://en.wikipedia.org/wiki/Article_processing_charge">article processing charges</a>) or subscription fees</em>.</p>
+        <p><%= setting(:name) %> is an open access platform <em>committed to running at minimal costs, with zero publication fees (<a href="https://en.wikipedia.org/wiki/Article_processing_charge">article processing charges</a>) or subscription fees</em>.</p>
 
-        <p>Under the NumFOCUS nonprofit umbrella, <%= setting(:abbreviation) %> is now eligible to seek grants for sustaining its future. With an entirely volunteer team, <%= setting(:abbreviation) %> is seeking to sustain its operations via <%= link_to 'donations', "https://numfocus.org/donate-to-joss", target: "_blank" %> and grants, keeping its low cost of operation and free service for authors.</p>
+        <p>Under the <a href="https://conp.ca">CONP</a> umbrella, <%= setting(:abbreviation) %> is eligible to seek grants for sustaining its future. With an entirely volunteer team, <%= setting(:abbreviation) %> is seeking to sustain its operations via donations and grants, keeping its low cost of operation and free service for authors.</p>
 
-        <p>In the spirit of transparency, below is an outline of our current running costs:</p>
-
-        <ul>
-          <li>Annual Crossref <a href="http://www.crossref.org/02publishers/20pub_fees.html">membership</a>: $275 / year
-          </li>
-          <li>Annual Portico <a href="https://www.portico.org/join/how-publishers-can-join/">membership</a>: $250 / year
-          </li>
-          <li><%= setting(:abbreviation) %> paper DOIs: $1 / accepted paper</li>
-          <li><%= setting(:abbreviation) %> website hosting (Heroku): $19 / month</li>
-        </ul>
-
-        <p>Assuming a publication rate of 200 papers per year this works out at ~$4.75 per paper ((19*12) + 200 + 275 + 250) / 200.</p>
-
-        <p>A more detailed analysis of our running costs is available <a href="http://blog.joss.theoj.org/2019/06/cost-models-for-running-an-online-open-journal" target="_blank">on our blog</a>.</p>
-
-        <h4>Income</h4>
-
-        <p>JOSS has an experimental collaboration with <%= link_to "AAS publishing", "https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing" %> where authors submitting to one of the AAS journals can also publish a companion software paper in JOSS, thereby receiving a review of their software. For this service, JOSS receives a small donation from AAS publishing. In 2019, JOSS received $200 as a result of this collaboration.</p>
-
-        <h4>Donate</h4>
-
-        <p>Donations are one way for JOSS to offset our costs: <%= link_to image_tag("https://img.shields.io/badge/Donate-to%20JOSS-brightgreen.svg"), "https://numfocus.org/donate-to-joss", target: "_blank" %></p>
       </div>
 
       <div class="generic-content-item" id="content_license">
         <h1>Content Licensing & Open Access</h1>
         <p>
-          <%= setting(:abbreviation) %> is a <a href="https://en.wikipedia.org/wiki/Open_access#Diamond/platinum_OA" target="_blank">diamond/platinum open access</a> journal. Copyright of <%= setting(:abbreviation) %> papers is
-          retained by submitting authors and accepted papers are subject to a <a rel="license"
+          <%= setting(:abbreviation) %> is a <a href="https://en.wikipedia.org/wiki/Open_access#Diamond/platinum_OA" target="_blank">diamond/platinum open access</a> journal. Copyright of <%= setting(:abbreviation) %> living preprints is
+          retained by submitting authors and accepted living preprints (content) are subject to a <a rel="license"
             href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International
             License</a>.</p>
-        <p>Any code snippets included in <%= setting(:abbreviation) %> papers are subject to the <a
-            href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a> regardless of the license of the
-          submitted software package under review.</p>
-        <p>Any use of the JOSS logo is licensed CC BY 4.0. See the <code><a href="https://github.com/openjournals/digital-assets/tree/master/joss/logo" target="_blank">joss/logo</a></code> directory in the <a href="https://github.com/openjournals/digital-assets" target="_blank">digital-assets</a> repository for more information about it.</p>
+        <p>Code licenses (should be OSI-approved) are as specified in the repository from which the living preprint is built.</p>
+        <p>Any use of the Evidence digital assets is licensed CC BY 4.0. See the <code><a href="https://github.com/evidence/brand" target="_blank">evidence/brand</a></code> digital assets repository for more information about it.</p>
         <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>.
       </div>
     </div>
@@ -247,9 +228,8 @@
       <nav class="menu" id="subnav">
         <a class="menu-item selected" href="#about">About</a>
         <a class="menu-item" href="#submitting">Submission scope</a>
-        <a class="menu-item" href="#editorial_board">Editorial Board</a>
+        <a class="menu-item" href="#editorial_board">Team</a>
         <a class="menu-item" href="#topic_editors">Topic Editors</a>
-        <a class="menu-item" href="#editors_emeritus">Editors Emeritus</a>
         <a class="menu-item" href="#contact">Contact <%= setting(:abbreviation) %></a>
         <a class="menu-item" href="#code_of_conduct">Code of Conduct</a>
         <a class="menu-item" href="#ethics">Ethics Guidelines</a>
@@ -257,10 +237,9 @@
         <a class="menu-item" href="#content_license">Content Licensing &amp; Open Access</a>
       </nav>
 
-      <a class="menu-btn" href="https://joss.readthedocs.io/en/latest/submitting.html">Author information</a>
-      <%= link_to "🎉 Volunteer to review".html_safe, setting(:reviewers_signup_url), class: "menu-btn" %>
-      <a class="menu-btn" href="https://joss.readthedocs.io/en/latest/reviewer_guidelines.html">Reviewer guidelines</a>
-      <%= link_to "✨ Donate to #{setting(:abbreviation)}&nbsp;&nbsp;✨".html_safe, "https://numfocus.org/donate-to-joss", class: "menu-btn", target: "_blank" %>
+      <a class="menu-btn" href="https://author.evidencepub.io">Author information</a>
+      <%= link_to "🎉 Volunteer to screen".html_safe, setting(:reviewers_signup_url), class: "menu-btn" %>
+      <a class="menu-btn" href="https://joss.readthedocs.io/en/latest/reviewer_guidelines.html">Screening guidelines</a>
       <%= link_to "Table of contents".html_safe, toc_index_path, class: "menu-btn" %>
     </div>
   </div>
