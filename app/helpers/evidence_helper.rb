@@ -12,19 +12,22 @@ This method operates on a (class) paper instance variable (not a random input).
 When added at the root directory of a NeuroLibre submission repository, `featured.png` is displayed in the paper card.
 This method checks whether it exists on master/main branch, otherwise returns a placeholder.
 =end
-    def pretty_card_image(paper)    
-        repo_name = paper.pretty_repository_name.gsub(/\s+/, "")
-        user_image_main = "https://raw.githubusercontent.com/#{repo_name}/main/featured.png"
-        user_image_master = "https://raw.githubusercontent.com/#{repo_name}/master/featured.png"
-        if url_exist?(user_image_main)
-          return user_image_main
-        elsif url_exist?(user_image_master)
-          return user_image_master
-        else
-          return "https://raw.githubusercontent.com/neurolibre/brand/main/png/pattern_dark.png"
-        end
-        
-    end
+def pretty_card_image(paper)
+  repo_name = paper.pretty_repository_name.gsub(/\s+/, "")
+  image_extensions = ['png', 'jpg', 'jpeg', 'webp', 'tiff']
+  
+  # Try each extension on both main and master branches
+  image_extensions.each do |ext|
+      main_image = "https://raw.githubusercontent.com/#{repo_name}/main/featured.#{ext}"
+      master_image = "https://raw.githubusercontent.com/#{repo_name}/master/featured.#{ext}"
+      
+      return main_image if url_exist?(main_image)
+      return master_image if url_exist?(master_image)
+  end
+  
+  # Return default if no featured image found
+  return "https://raw.githubusercontent.com/neurolibre/brand/main/png/pattern_dark.png"
+end
 
 =begin
 This method populates the paper card with author information 
