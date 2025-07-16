@@ -85,7 +85,7 @@ Depending on the existence of the authors data and links per author (e.g., perso
         badge_class = paper.state.gsub('_', '-')
     
         if state == "accepted"
-          return content_tag(:span, "LIVING PREPRINT", class: "badge #{badge_class}")
+          return content_tag(:span, "DYNAMIC PAPER", class: "badge #{badge_class}")
         else
           return content_tag(:span, state, class: "badge #{badge_class}")
         end

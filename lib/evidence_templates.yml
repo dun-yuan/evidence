@@ -1,7 +1,7 @@
 templates:
   - id: python-skeleton
     title: Python Skeleton
-    description: A basic MyST article template that can be used as a skeleton for Pythonic preprints.
+    description: A basic MyST article template that can be used as a skeleton for Pythonic dynamic papers.
     icon: 🐍🩻
     languages: ["Python","Plotly","Pandas"]
     github_url: https://github.com/neurolibre/mystical-article
