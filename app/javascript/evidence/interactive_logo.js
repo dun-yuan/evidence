@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p style='font-size:50px; display:block;text-align:center;'>🍃</p>
                 <p style='display:block; width:100%; margin-bottom:10px'>
                     <span style='font-size:30px; font-weight:bold; color:white;text-shadow: 2px 2px 3px #394459;'>
-                        What brings a preprint to life?
+                        What brings evidence to life?
                     </span>
                 </p>
                 <p style='display:block; width:100%; text-shadow: 2px 2px 3px #394459;'>
