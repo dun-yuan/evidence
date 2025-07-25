@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p style='display:block; width:100%; text-shadow: 2px 2px 3px #394459;'>
                     ${('ontouchstart' in window) 
                         ? 'Tap the wiggling leaves behind to find out as you color up the logo! <br><br> Touch to start' 
-                        : 'Hover over the wiggling leaves behind to find out as you color up the logo! <br><br> Click to start'}
+                        : 'Hover over the wiggling leaves to reveal more and light up the logo! <br><br> Click to start'}
                 </p>
             </div>`;
             
