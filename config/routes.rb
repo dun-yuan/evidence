@@ -83,6 +83,7 @@ Rails.application.routes.draw do
 
   get '/dashboard/*editor', to: "home#reviews"
   get '/about', to: 'home#about', as: 'about'
+  get '/llm-search-demo', to: 'home#llm_search_demo', as: 'llm_search_demo'
 
   get '/profile', to: 'home#profile', as: 'profile'
   post '/update_profile', to: "home#update_profile"

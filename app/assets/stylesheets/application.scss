@@ -983,11 +983,33 @@ $btn-primary-border: darken($btn-primary-bg, 5%) !default;
         margin-right: 0.5em;
     }
 
-    h1 {
+  h1 {
         display: inline-block;
 
 
     }
+}
+
+.llm-search-lead {
+  max-width: 64rem;
+}
+
+.llm-search-demo {
+  .llm-search-form {
+    margin-bottom: 1.5em;
+  }
+
+  .llm-search-summary {
+    margin-bottom: 1em;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+
+  .llm-resource-card .paper-meta {
+    align-items: flex-start;
+  }
 }
 
 header {

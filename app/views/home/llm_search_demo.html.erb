@@ -1,0 +1,92 @@
+<div class="container papers-hero">
+  <div class="hero-small">
+    <div class="hero-title">
+      <%= image_tag "icon_papers.svg", height: "32px" %>
+      <h1>LLM Resource Search Demo</h1>
+    </div>
+  </div>
+  <p class="lead llm-search-lead">
+    Search across published papers for code repositories and dataset links using metadata plus URL extraction.
+  </p>
+</div>
+
+<div class="container llm-search-demo">
+  <%= form_for("", url: llm_search_demo_path, method: :get, html: { class: "llm-search-form" }) do |f| %>
+    <div class="form-row">
+      <div class="col-lg-7 col-md-12 mb-2">
+        <%= f.text_field :q, value: @query, placeholder: "Try: climate datasets, genomics code, zenodo", class: "form-control" %>
+      </div>
+      <div class="col-lg-2 col-md-4 mb-2">
+        <%= f.select :kind,
+          options_for_select([["All resources", ""], ["Code", "code"], ["Datasets", "dataset"]], @kind),
+          {},
+          class: "form-control" %>
+      </div>
+      <div class="col-lg-1 col-md-3 mb-2">
+        <%= f.number_field :limit, value: @limit, min: 1, max: 100, class: "form-control" %>
+      </div>
+      <div class="col-lg-2 col-md-5 mb-2">
+        <%= button_tag "Search", type: :submit, class: "btn action-btn btn-block" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="llm-search-summary">
+    <span class="count-badge">Total: <%= @results.size %></span>
+    <span class="count-badge">Code: <%= @counts[:code] %></span>
+    <span class="count-badge">Datasets: <%= @counts[:dataset] %></span>
+    <%= link_to "Open JSON", llm_search_demo_path(format: :json, q: @query, kind: @kind, limit: @limit), class: "btn btn-sm btn-outline-secondary ml-2" %>
+  </div>
+
+  <% if @results.empty? %>
+    <div class="paper-card">
+      <p class="mb-0">No matching resources found. Try broader terms or switch to "All resources".</p>
+    </div>
+  <% else %>
+    <div class="paper-list">
+      <% @results.each do |result| %>
+        <% paper = result.paper %>
+        <div class="paper-card llm-resource-card">
+          <div class="row">
+            <div class="col-lg-9">
+              <span class="badge <%= result.resource_type == 'code' ? 'review-pending' : 'accepted' %>">
+                <%= result.resource_type %>
+              </span>
+              <span class="time">score <%= result.score %></span>
+              <h2 class="paper-title mt-2">
+                <%= link_to paper.title, (paper.accepted? ? paper.seo_url : paper_path(paper)) %>
+              </h2>
+              <p class="mb-2">
+                <%= link_to result.resource_url, result.resource_url, target: "_blank", rel: "noopener" %>
+              </p>
+              <p class="mb-2 small text-muted">
+                Source: <code><%= result.resource_source %></code>
+                <% if result.matches.any? %>
+                  - Matched on: <%= result.matches.join(", ") %>
+                <% end %>
+              </p>
+              <div>
+                <% (paper.language_tags rescue []).each do |language| %>
+                  <span class="badge-lang mr-1 mb-1"><%= language %></span>
+                <% end %>
+                <% (paper.author_tags rescue []).first(4).each do |tag| %>
+                  <span class="badge-lang mr-1 mb-1"><%= tag %></span>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-lg-3 paper-meta">
+              <div>
+                <strong>DOI</strong><br>
+                <%= paper.doi.presence || "Pending" %>
+              </div>
+              <div class="mt-2">
+                <strong>Published</strong><br>
+                <%= paper.accepted_at ? paper.accepted_at.strftime("%d %b %Y") : "Unknown" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

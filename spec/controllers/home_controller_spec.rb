@@ -39,6 +39,28 @@ describe HomeController, type: :controller do
     end
   end
 
+  describe "GET #llm_search_demo" do
+    before do
+      skip_paper_repo_url_check
+      create(:accepted_paper, title: "Dataset paper", archive_doi: "10.5281/zenodo.55555")
+    end
+
+    it "renders the demo page" do
+      get :llm_search_demo, params: { q: "dataset", kind: "dataset" }, format: :html
+      expect(response).to be_successful
+      expect(response.body).to match /LLM Resource Search Demo/
+    end
+
+    it "renders structured json results" do
+      get :llm_search_demo, params: { q: "zenodo", kind: "dataset" }, format: :json
+      expect(response).to be_successful
+
+      payload = JSON.parse(response.body)
+      expect(payload["results"]).not_to be_empty
+      expect(payload["results"].first["resource"]["type"]).to eq("dataset")
+    end
+  end
+
   describe "GET #profile" do
     it "should render profile page without 'update my profile banner'" do
       user = create(:user, email: nil, github_username: nil)

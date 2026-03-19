@@ -11,6 +11,38 @@ class HomeController < ApplicationController
   def about
   end
 
+  def llm_search_demo
+    @query = params[:q].to_s.strip
+    @kind = params[:kind].to_s.presence
+    @limit = params[:limit].to_i
+    @limit = 25 if @limit <= 0
+    @limit = 100 if @limit > 100
+
+    @results = LlmResourceSearch.new(
+      query: @query,
+      kind: @kind,
+      limit: @limit
+    ).call
+
+    @counts = {
+      code: @results.count {|result| result.resource_type == "code"},
+      dataset: @results.count {|result| result.resource_type == "dataset"}
+    }
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          query: @query,
+          kind: @kind || "all",
+          total_results: @results.size,
+          generated_at: Time.current.iso8601,
+          results: @results.map {|result| serialize_search_result(result)}
+        }
+      end
+    end
+  end
+
   def dashboard
     if params[:editor]
       @editor = Editor.find_by_login(params[:editor])
@@ -180,5 +212,48 @@ private
   def set_votes_by_paper_from_editor(editor, papers)
     in_scope_papers = papers.select {|p| p.labels.keys.include?("query-scope")}
     @votes_by_paper_from_editor = in_scope_papers.any? ? Vote.where(editor: editor).where(paper: in_scope_papers).index_by(&:paper_id) : {}
+  end
+
+  def serialize_search_result(result)
+    paper = result.paper
+    paper_url = paper.accepted? ? paper.seo_url : paper_path(paper)
+    languages = paper.language_tags
+    tags = paper.author_tags
+
+    {
+      paper: {
+        title: paper.title,
+        doi: paper.doi,
+        url: paper_url,
+        accepted_at: paper.accepted_at&.iso8601
+      },
+      resource: {
+        type: result.resource_type,
+        url: result.resource_url,
+        source: result.resource_source
+      },
+      languages: languages,
+      tags: tags,
+      relevance_score: result.score,
+      matched_on: result.matches
+    }
+  rescue StandardError
+    {
+      paper: {
+        title: paper.title,
+        doi: paper.doi,
+        url: paper_url,
+        accepted_at: paper.accepted_at&.iso8601
+      },
+      resource: {
+        type: result.resource_type,
+        url: result.resource_url,
+        source: result.resource_source
+      },
+      languages: [],
+      tags: [],
+      relevance_score: result.score,
+      matched_on: result.matches
+    }
   end
 end
